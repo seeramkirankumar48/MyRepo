@@ -1,0 +1,29 @@
+1.Methods declared in superclass should be public in derived classes
+2.methods declared protected in superclass should be either of protected or public
+3.A class should be either public or default
+4.A local variable cannot be static.
+5.In interface all the variables are by default public static final and methods are public
+6.Abstract classes can't be instantiated.
+7.length() method is used in calculating the length of the string but in arrays the length property is used to calculate the length of the array.
+8.%s-String
+%d-integer
+%f-float
+%c-character
+%t-DateTime
+9.default-only with in the package
+protected-with in the package + and subclasses which inherit on the other packages.
+private-with in the class
+public--everywhere but outside the package import statements should be specified.
+10.this can be used with instance variables,methods,constructors.
+11.this is used to point to the instance variables of the class
+this.instance_variable=constructor_parameter_value;
+12.to invoke an another constructor use::
+this();
+
+
+
+Accessmodifiers
+-----------------
+Transient && volatile
+Date
+Regex
