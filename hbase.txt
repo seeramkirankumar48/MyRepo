@@ -1,0 +1,48 @@
+1.why going for HBase??
+A.The data stored in HDFS is processed by batch and data is read sequentially.However, there is a need for random access of data and high availability is the option so hbase is developed on top of the HDFS.
+2.what is the difference b/w RDBMS & NOSql
+A.RDBMS is schema defined and not suitable for schema evolution and it doesn't scaleout when the database is growing since there is problem of (Data Normalization acid properties). The Rdbms performing aggregations is a tremendous time consuming task as it is row oriented.
+3.In HBase a table is defined with column families and a column family may contain any number of rows and each table in it is sorted by row.
+4.HBase is horizontally scalable.
+5.Hbase provides consistent reads and writes.
+6.HBase is CP(consistent and partition tolearance) application.
+7.InOrder to start HBase we need to start HDFS.which will be in NN.-->
+	bin/start-dfs.sh
+	under it contains master and slaves
+	and then we have to start hbase
+	bin/start-hbase.sh-- it will internally invoke Hmaster and Regionservers.
+8.Hbase is an indexed filesystem on top of HDFS.
+9.In Hbase we won't store the unneccesary data as null it is same as Jagged Arrays concept.so that, unnecessary memory is not occupied.
+10.In sql we specify the schema on create and during insert it will check for schema validations, where as in hbase we will specify column families and during insert we will specify the actual column schema.
+11.There should be atleast one column family when defining the table in hbase.
+	create 'emp','personal','official'
+12.In Hbase the master and slaves are Hmaster and RegionServer
+13.The HMaster and Namenode can be seperate daemons running on individual machines but the regionservers are maintained on top of the datanodes.
+14.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+doubts:
+1.Although we are defining the column families in hbase table creation why it is schema-less?
+2.
