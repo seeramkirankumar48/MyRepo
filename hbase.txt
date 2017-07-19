@@ -45,4 +45,4 @@ A.RDBMS is schema defined and not suitable for schema evolution and it doesn't s
 
 doubts:
 1.Although we are defining the column families in hbase table creation why it is schema-less?
-2.
+2.How the data is stored in RDBMS?
