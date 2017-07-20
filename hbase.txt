@@ -11,6 +11,7 @@ A.RDBMS is schema defined and not suitable for schema evolution and it doesn't s
 	under it contains master and slaves
 	and then we have to start hbase
 	bin/start-hbase.sh-- it will internally invoke Hmaster and Regionservers.
+	The Hmaster contain a file called RegionServer it will contain all the list of Regionservers when ever it is started all the 	RegionServer daemons are invoked.
 8.Hbase is an indexed filesystem on top of HDFS.
 9.In Hbase we won't store the unneccesary data as null it is same as Jagged Arrays concept.so that, unnecessary memory is not occupied.
 10.In sql we specify the schema on create and during insert it will check for schema validations, where as in hbase we will specify column families and during insert we will specify the actual column schema.
@@ -46,3 +47,4 @@ A.RDBMS is schema defined and not suitable for schema evolution and it doesn't s
 doubts:
 1.Although we are defining the column families in hbase table creation why it is schema-less?
 2.How the data is stored in RDBMS?
+3.What is meant by jvm running on the processor??
