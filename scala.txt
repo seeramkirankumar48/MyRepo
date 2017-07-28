@@ -1,0 +1,344 @@
+scala::
+---------
+1.scala was introduced in the year 2001 by martin odersky it gained momentum with spark there are frameworks avialable to develop the webapplications using scala called akka or play framework.
+2.scala follows the functional programming paradigm.
+a.for printing a statement in java we need a class,main method and with in the main method there should be a statement with System.out.println("dfdfdfd"); we need this much of code. where as in scala(functional programming) we only need to specify the println("dfdfdf") statement it will indeed evaluate into the required class types and pass it to the JVM.
+3.the scala repl or (scala shell) is a tool for evaluating expressions in scala in an interactive mode.
+REPL stands for- Read--Evalutate-Print--Loop
+4.to get help in the scala use command -- :help
+
+5.Variables declaration:
+-------------------------
+a.val and var are used for creating the variables.
+val-- immutable (final variables)
+var-- mutable (can be changed)
+b.Syntax for initializing::
+val i=10;
+var j=30;
+variables when initialized with the values we need not to provide the type, the interpretor will do the "type Inference" and assign it to the suitable type.
+c.once if the variable is initialized with one type and if it was again assigned with another type it is an error.
+var j=10;
+j="Hello World"// error
+
+-->All the identifiers in scala should start with either alphanumeric or _(underscore)
+
+d.scala is case sensitive language that means the variables declaration with (i or I) are differed and have different meaning.
+e.If we want to declare a variable with type then the syntax is
+val i:Int =10
+f.In scala all the variables need to be initialized(mandatory).
+g.In scala we declare variables in one manner where the scala converts the variable to the primitive types as and when it needs to be and converts to the class type as and when it requires this feature in scala is called as "Value classes".And all of the complexity of the internal logic is abstracted by the scala.(There is no concept of primitive types).
+6.Everything is an object in scala.Scala doesn't have primitive types.Even the function itself is an object in scala.
+7.In FP language the functions are the "firstclass" citizens meaning is that you can use the function as a variable.you can pass the function as a parameter to the another function.
+8.the scala code is compiled by the scalac (Scala compiler) and it is converted to the bytecode and this in turn runs on the JVM. so this byte code is JVM compliant.
+9.scala shell is not a interpreted shell it is a compiled shell. whatever the code we executed in the shell gets compiled beside the scenes.
+10.scala supports lazy loading or loading on demand which is very much useful while dealing with heavy computations
+	syntax:: lazy val x = 10
+		//x:int =<lazy>
+		x*2 // it will intialize the value of x to 10 and then it will do the computation.
+		//20
+	we can use this lazy loading for any of the variables including (file loading).
+11.the foreach loop in scala is available for every collections.foreach takes only the functions.
+	val x:String = "test"
+	x.foreach(println) // passing function as a parameter to the another function this why it is called that functions are the 	first class citizens.(Here String "test" is nothing but a collection of characters)
+	o/p:
+	t
+	e
+	s
+	t
+12.The for loop in scala always assumes that the loop increases by 1.
+	for(i <- 1 to 5) println(i) // 1,2,3,4,5
+	for(i <- 5 to 1) println(i) // nothing will be printed since it assumes that loop increases by 1.
+	for(i <- 5 to 1 by -1) println(i) // 5,4,3,2,1
+13.we can write nested for loops using the syntax::
+	for(i <- 1 to 5; j <-1 to 5) println(s"($i,$j)")
+	o/p:: will be like (1,1) (1,2)
+	when we want to substitute a variable inside the print statement we have to use the "$" symbol beside the variable.
+	here s represents the string type. i for integer.
+14.for loop with a guard condition.
+   for with an if inside.
+	to print the numbers if i and j are equal 
+	in java it will be written as::
+	for (i=1;i<=5;i++)
+	{
+	for(j=1;j<=5;j++)
+	{
+	if(i==j)
+	{
+	System.out.println("("+i+","+j+")");
+	}
+	}
+	}
+	in scala it will be written as 
+	for(i <- 1 to 5; j <-1 to 5 if i == j) println(s"($i,$j)") // o/p will be like (1,1)(2,2)(3,3)(4,4)
+	//by using the guard condition it will check the conditions in the loop itself
+	Ex:for(cust <- CustList if cust.isactive()) // it will only trigger the customers who are active.(Real-Time)
+	//if is an predicate value.
+15.in yield the result of each for loop iteration is stored in a list(vector)
+	for(i <- 1 to 5 if i%2==0) yield(i)
+this will typically gets stored in a vector.
+or else we can assign it to the variable
+val x=for(i <- 1 to 5 if i%2==0) yield(i) the type of x is yield.
+16.To define the functions in the scala syntax is::
+	def function_name(param_name:data_type,param_name:data_type,....):Return_datatype={
+		//code
+	}
+	def areaRect(l:Int,b:Int):Int={
+	l*b
+	}
+	//areaRect(9,10)
+if the return type is nothing then it should be unit.
+**write a program to write even or odd program it should return true or false::
+def isEven(number:Int):Boolean ={
+	number%2==0
+}
+17.In Scala we can pass the default arguments to the functions
+def fun(i:Int,j:Int=10):Unit={}
+note:: It is the best practice to give the default parameter list at the end.if we give it at first::
+	def fun(i:Int=10;j:int):Unit={}
+	//if we call the method fun(20) //it will expect that the argument is passed for i and not for j so it will throw the error.
+to overcome this we can call the function by fun(j=20) and hence it is the best practice to use the default at the end of the parameter list.
+18.Scala::Collections
+---------------------
+i.Arrays::
+val arr=new Array[Int](10)
+by default they are defaulted to zero if it is int.if it is string then it is null.
+to insert the elements into the array 
+arr(0)=1
+arr(1)=1
+to create the array of static type
+val arr=Array(1,2,3,4)
+**the variable "arr" is of val type(which is immutable) how can we change the values of the array??
+we can change the contents of the array object but we cannot make changes to the array reference variable/
+
+ii.ArrayBuffer::
+The ArrayBuffer is present in scala.collection.mutable.ArrayBuffer
+The only difference between the array and ArrayBuffer is that ArrayBuffer can grow in size.
+syntax::
+val arr= new ArrayBuffer[Int]()
+val arr1=new ArrayBuffer[Int](2) // even though if we mention the size here it will go beyond the size.
+-->we can initialize an array or array buffer to the arraybuffer using ++= 
+Ex: val arr=Array(1,2,3)
+val arr1=new ArrayBuffer[Int]()
+arr1++=arr // it will assign all the arr elements into arr1
+-->to add an individual element use +=
+Ex: val arr=new ArrayBuffer[Int](2) 
+arr+=2
+Common operations on Array and ArrayBuffer::
+---------------------------------------------
+i)a.trimEnd(2) // removes the last 2 elements
+ii)a.insert(2,9) //adds element at 2nd index
+iii)a.insert(2,10,11,12) // adds a list
+iv)a.remove(2) //Removes an element
+v)a.remove(2,3) //Removes three elements from index 2
+vi)to print elements in the collection we can either use::
+	for(n <- a) println(n) or a.foreach(println)
+vii)arr.sum //sum of the elements
+viii)arr.max //maximum element in the collection
+ix)arr.min //min element in the collection
+x)To sort the elements in the array collection::
+the sorting collection is available in scala.util.Sorting.quickSort
+
+iii)Maps:
+Maps are just key value pairs.if we create a map by default it will create an immutable map.
+syntax:: var x=Map(1->"Kiran",2->"yyy");
+to retrieve a value from the map we can use::
+1.x(1)
+2.x.get(1)
+3.if we give an unknown value for which the key doesnot exists in the map then it will throw error to overcome these::
+m.getOrElse(3,"The value not found")
+-->to delete an key use m-=1
+-->to add a key back use m+=(1->"Kiran")
+-->to create an mutable Map use the collection::
+scala.collection.mutable
+-->There should not be more than one key with the same keyname.
+
+Advantages of immutability::
+-----------------------------
+1.data integrity:: Ex: when we want to send the data to the Client where the client should not want to change whatever the data we are passing.
+2.Synchronization overhead is reduced:: when multiple threads are using the same object(as it is immutable no one can write the data to the objects). parallely any number of threads can read the data.
+
+Tuples::
+----------
+Since the arrays are used to store the homogenous data.The tuples are used to store the heterogenous data.
+--> by default the tuples are treated as "val" types.we cannot modify the content or the reference of the tuple once it was created.
+-->to create a tuple::
+val t=(1,"kiran",24,30000.00)
+-->to access the tuple elements use::
+t._1 // 1
+t._2 //"kiran"
+-->the best usecase for this is while reading the data from the database table.
+
+19.Programming constructors in scala
+----------------------------------
+a. if we want to write the code in a single line syntax is::(we can write expressions in the block)
+	whatever the last value is given is assigned to the variable.
+  	val i={var j=1
+		var k=math.pow(2,10)
+		j-k
+		}
+	//value of i is -1023
+
+20.scala classes and constructors creation::
+---------------------------------------------
+-->by default if we dont specify any access modifier in scala it is by default treated as public.
+-->Class Creation::
+class MyClass{
+def test():Unit={
+println("test method...")
+}
+}
+object TestMyClass{
+val m=new MyClass()
+m.test()
+}
+}
+//test method....
+-->Class Constructors::
+1.Primary Constructors.
+
+class MyClass(val name,val age)// primary constructors{
+def test():Unit={
+println(name+" "+age)
+}
+}
+object TestMyClass{
+val m=new MyClass()
+m.test("test",12)
+}
+}
+//test 12
+
+
+2.auxilary constructors.
+
+class MyClass(private val name,private val age)// primary constructors{
+def this(name:String){ //auxilary constructors
+this(name,100)
+}
+def test():Unit={
+println(name+" "+age)
+}
+}
+object TestMyClass{
+val m=new MyClass()
+m.test("test")
+}
+}
+//test 100
+
+//here we are calling the primary constructor in the auxilary constructor and assigning the default age to 100 and all the primary constructor fields are made private.
+
+//In scala whatever the code inside the class except the method definitions  will get executed for each and every object creation.
+
+class MyClass(private val name,private val age)// primary constructors{
+
+println("Some message...)"
+
+def this(name:String){ //auxilary constructors
+this(name,100)
+}
+def test():Unit={
+println(name+" "+age)
+}
+}
+object TestMyClass{
+val m=new MyClass()
+m.test("test")
+val m1=new MyClass()
+m.test("test1")
+}
+}
+
+o/p will be:: 
+Some message...  //gets executed for each instance
+test 100
+Some message...  //gets executed for each instance
+test1 100
+
+21.the below code::
+object MyObject{                                                                                                                                                         
+     | def fun(i:Int,j:Int):Unit={                                                                                                                                              
+     | println(i*j)                                                                                                                                                             
+     | }                                                                                                                                                                        
+     | def main(args:Array[String])                                                                                                                                             
+     | {                                                                                                                                                                        
+     | MyObject.fun(10,20)                                                                                                                                                      
+     | }                                                                                                                                                                        
+     | }  
+
+//it is an immutable object because it doesn't have any state(any parameters) that will effect this object.
+
+22.The objects in scala can be created in two types
+1.Singleton objects
+2.Companion objects
+
+1.Singleton objects::
+to declare a classes of type like static in java it is called singleton objects but it is declared with the keyword "object"
+The advantage is we need not to instantiate the class.
+
+ex::
+object MyObject{                                                                                                                                                         
+     | def fun(i:Int,j:Int):Unit={                                                                                                                                              
+     | println(i*j)                                                                                                                                                             
+     | }                                                                                                      
+     | }  
+
+object MyCalc{
+| def main(args:Array[String])                                                                                                                                             
+     | {                                                                                                                                                                        
+     | MyObject.fun(10,20)                                                                                                                                                      
+     | } 
+}
+
+to call the method use:: MyCalc.main(null)
+
+
+Singleton use-cases::
+1.when a singleton instance is required for coordinating a service.(like a service any number of clients can be able to use that).
+2.when a single immutable instance could be shared for efficiency purposes.(ex:1:no one can modify the data once data is written from client,ex:2:printer service)
+3.when an immutable instance is required for utility functions or constants.(such as println)
+
+2.Companion objects::
+till now we created the class of object(which doesnot depend upon the state) and the class(which depend on the state), if we want to create the combination of these two then we have to create the companion objects
+
+syntax::
+class MyClass{
+def fun1():Unit={
+println("fun1 method");
+MyClass.fun2()
+}
+}
+
+object MyClass{
+def fun2():Unit={
+println("fun2 method")
+//here if we call fun1() method hence it is not being instantiated it will not call the method fun1()
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+doubts::
+---------
+1.what is functional programming
+2.why immutability vs mutability is major concern
+3.difference b/w primitive and non primitive types.
+4.what is the difference between the method and function in scala.
+
+
+
+tips::
+-------
+1.download the github code of scala of prithviraj bose from this link::
+https://github.com/prithvirajbose/scala-dev.git
+2.
