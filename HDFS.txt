@@ -3,11 +3,12 @@ when size of the file is larger than the size of the disk it is neccessary to st
 
 hdfs is used to store the large files with streaming data access patterns on an commodity hardware.
 
+streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks(as data is in the block) and maximum I/O of the disk.hdfs follows WORM (write once read many times) (data is written once and various types of analysis or performed on data)pattern hence there is much emphasis on reading many times for different jobs.
+
 hdfs can tolerate the node failure.
 
 hdfs tolerates the node failure with the help of replication factor configured in the config files.
 
-streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks and maximum I/O of the disk.hdfs follows WORM (write once read many times) (data is written once and various types of analysis or performed on data)pattern hence there is much emphasis on reading many times for different jobs.
 hdfs is not a good fit for::
 1.low latency data access::
 since it is used for batch processing it is not useful to get the high throughput(the amount of time taking to process) of the data.Hbase is used in this case.
@@ -35,7 +36,7 @@ hdfs fsck / -files -blocks
 -->hdfs cluster comprises of nodes::
 there is a master node and number of slave nodes::
 the master node stores the metadata namespace of the files.
-the master node also knows the which file has stored in which of the datanodes.however it doesn't store this data persistently since it is retrieved automatically when the system restarts and it(datanode sends which blocks it has) is sent to the NN in the form of heartbeats.
+the master node also knows which file has stored in which of the datanodes.however it doesn't store this data persistently since it is retrieved automatically when the system restarts and it(datanode sends which blocks it has) is sent to the NN in the form of heartbeats.
 
 -->the NN maintains the metadata information in 2 files namely,
 FSImage (filesystem image)
@@ -54,12 +55,15 @@ users or applications instruct the NN which files to cache and for how long by a
 
 Namenode HA::
 -------------
+-->the memory is always a limiting factor for NN.
+-->it is possible to add multiple NN's in which one NN will manage one namespace and other NN will use another namespace.so, the failure of one NN doesn't effect the performance of another NN.however, the block reports from the datanodes is sent to both of the namenodes.
+
 since, NN is SPOF, if it fails then the entire mapreduce jobs running on the cluster could be failed. and hence it is mandatory to make the Namenode HA.
-since making all of the metadata in SNN will take time it is necessary to run an passive namenode provided if,
+since loading all of the metadata from SNN will take time it is necessary to run an passive namenode provided if,
 1.The entire NN fs image is loaded into the memory
 2.replayed its editslog
 3.recieved enough block information from the datanodes to leave the safe mode.
-since, the SNN functionality is subsumed by the passive or standby namenode.it is neccessary to make edits log information more highly available.hence NFS or QJM (which will be written to the majority of the journal nodes).so that standby node reads the data from the QJM incase of active failover.
+since, the SNN functionality is subsumed by the passive or standby namenode,it is neccessary to make edits log information more highly available.hence NFS or QJM (which will be written to the majority of the journal nodes).so that standby node reads the data from the QJM incase of active failover.
 the data blocks information is sent both to the active as well as passive namenodes.
 clients must be configured to handle NN failover.
 if the active NN fails then the standby NN can quickly come into the picture because it has all the available metadata and the block information.
@@ -102,6 +106,17 @@ doubts::
 2.what are inodes?
 3.what is the calculation of if seektime is 10ms in guide?
 4.
+
+
+implinks::
+-----------
+1.https://hadoopabcd.wordpress.com/2015/05/31/hadoop-hdfs-federation/#more-555
+2.http://blog.madhukaraphatak.com/secondary-namenode---what-it-really-do/
+3.https://blog.cloudera.com/blog/2009/02/the-small-files-problem/
+4.https://stackoverflow.com/questions/22353122/why-is-a-block-in-hdfs-so-large
+5.https://martin.atlassian.net/wiki/pages/viewpage.action?pageId=26148906
+6.https://hadoopabcd.wordpress.com/
+
 
 
 
