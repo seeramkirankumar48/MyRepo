@@ -1,9 +1,13 @@
-hdfs is used to store the large files with streaming data access patterns on an commodity hardware.
-hdfs can tolerate the node failure.
-hdfs tolerates the node failure with the help of replication factor configured in the config files.
-streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks and maximum I/O of the disk.hdfs follows WORM (write once read many times) pattern hence there is much emphasis on reading many times for different jobs.
 why go for dfs??
 when size of the file is larger than the size of the disk it is neccessary to store the file in mulitple systems.
+
+hdfs is used to store the large files with streaming data access patterns on an commodity hardware.
+
+hdfs can tolerate the node failure.
+
+hdfs tolerates the node failure with the help of replication factor configured in the config files.
+
+streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks and maximum I/O of the disk.hdfs follows WORM (write once read many times) (data is written once and various types of analysis or performed on data)pattern hence there is much emphasis on reading many times for different jobs.
 hdfs is not a good fit for::
 1.low latency data access::
 since it is used for batch processing it is not useful to get the high throughput(the amount of time taking to process) of the data.Hbase is used in this case.
@@ -14,6 +18,24 @@ storing million is possible and billion is out of reach
 the maximum amount of files that we can store in the hadoop cluster is determined by the NN memory.
 3.multiple writers and arbitrary modifications::
 hadoop doesn't support for the multiple writers and whenever we want to modify a file it only appends at the end of the file in append only fashion so we cannot modify a file in between.
+
+-->hdfs stores the data interms of blocks of size 128mb(configurable).
+-->this is quite different as from that of the underlying file system where if the size of the file is 1mb it wont occupy all of the size of 128mb it only occupies the 1mb and releases 127mb of freespace for the other files.
+
+Advantages of file abstraction::
+---------------------------------
+1.client doesn't want to know whether if there is any free space or not since the data is handled by the multiple datanodes.
+2.client doesn't want to know if the user has right set of permissions to store the data in the datanodes since the metadata(whether the file has right set of permissions) is handled by the NN.
+3.client doesn't want to know from which replication factor(from which datanode) the data is coming from.
+
+-->to list the files in hdfs along with the file name and with the corresponding blocks use command::
+
+hdfs fsck / -files -blocks
+
+-->hdfs cluster comprises of nodes::
+there is a master node and number of slave nodes::
+the master node stores the metadata namespace of the files.
+the master node also knows the which file has stored in which of the datanodes.however it doesn't store this data persistently since it is retrieved automatically when the system restarts and it(datanode sends which blocks it has) is sent to the NN in the form of heartbeats.
 
 -->the NN maintains the metadata information in 2 files namely,
 FSImage (filesystem image)
@@ -27,7 +49,8 @@ there are 2 ways to do this::
 the SNN will keepon merging the namespace image by not growing the edits log file by certain configurations such as limiting the transactions or for a particular amount of time. hence it is obvious that in the event of complete failure of the NN there is only a minimal amount of data loss(edits log info).In the event of NN failure the secondary NN may and can be configured by loading the entire information on NFS to inmemory and act it as a NN.
 
 Block Caching::
-the most frequently used blocks in the datanode are cached which in turn will be useful when running the mapreduce tasks on them.
+the most frequently used blocks in the datanode are cached(block cache) per datanode which in turn will be useful when running the mapreduce tasks on them.
+users or applications instruct the NN which files to cache and for how long by adding a cache directive to the cache pool. 
 
 Namenode HA::
 -------------
@@ -63,12 +86,22 @@ Failover and Fencing::
 
 
 
+commands::
+----------
+1.to list the files along with the corresponding blocks for that file::
+hdfs fsck / -files -blocks
+2.to remove the files in the corresponding hdfs directory
+hadoop fs -rmr -skipTrash /user/edureka/Desktop
+3.to keep a file on top of hdfs::
+hdfs fs -put wordcount.txt /user/edureka
 
 
 doubts::
 --------
 1.what are the different configurations in the different config files?
 2.what are inodes?
+3.what is the calculation of if seektime is 10ms in guide?
+4.
 
 
 
