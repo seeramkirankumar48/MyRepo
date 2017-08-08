@@ -1,21 +1,35 @@
 scala::
 ---------
-1.scala was introduced in the year 2001 by martin odersky it gained momentum with spark there are frameworks avialable to develop the webapplications using scala called akka or play framework.
-2.scala follows the functional programming paradigm.
+1.scala was introduced in the year 2001 by martin odersky it gained momentum with spark there are frameworks available to develop the webapplications using scala called akka or play framework.
+2.scala follows the functional programming paradigm as well as object oriented programming.
 a.for printing a statement in java we need a class,main method and with in the main method there should be a statement with System.out.println("dfdfdfd"); we need this much of code. where as in scala(functional programming) we only need to specify the println("dfdfdf") statement it will indeed evaluate into the required class types and pass it to the JVM.
-3.the scala repl or (scala shell) is a tool for evaluating expressions in scala in an interactive mode.
+3.the scala repl or (scala shell) or Scala CLI is a tool for evaluating expressions in scala in an interactive mode.
 REPL stands for- Read--Evalutate-Print--Loop
 4.to get help in the scala use command -- :help
+to enter into the scala prompt or shell::
+use--scala
+to know version--scala -version
+to quit from scala repl -- :quit
+to enter multiple lines and execute them at a single go use--
+:paste
+to see the available methods in that particular reference variable after . hit tab key
+to clear the screen-- CTRL+L
+to exit from the paste mode -- CTRL+D
+to reset all the results in the REPL -- :reset
+
+-->In scala, each statement need not be ended with semicolon,if you are going to write the multiple statements with in a single line then it is necessary to seperate the each code snippet with a semicolon
+-->all the code written in {} is considered as a block.
+-->the block can be assigned to a variable and the last statement of the block can be assigned to the variable.
 
 5.Variables declaration:
 -------------------------
 a.val and var are used for creating the variables.
-val-- immutable (final variables)
+val-- immutable (final variables--cannot be changed)
 var-- mutable (can be changed)
 b.Syntax for initializing::
 val i=10;
 var j=30;
-variables when initialized with the values we need not to provide the type, the interpretor will do the "type Inference" and assign it to the suitable type.
+variables when initialized with the values we need not to provide the type, scala will do the "type Inference" and assign it to the suitable type.
 c.once if the variable is initialized with one type and if it was again assigned with another type it is an error.
 var j=10;
 j="Hello World"// error
@@ -37,6 +51,12 @@ g.In scala we declare variables in one manner where the scala converts the varia
 		x*2 // it will intialize the value of x to 10 and then it will do the computation.
 		//20
 	we can use this lazy loading for any of the variables including (file loading).
+
+-->when a variable is created with the block in it whatever the last value is there it is initialized to that particular variable.when there is nothing it will assign the return type Unit.
+-->the ternary operator is written with if-else statement in scala using a single line
+ex::	if(i > j) println(i) else println(j)
+-->the scala "++" operator has a different meaning as of that in java.so if we want to increment the particular value we will always use "+1" instead of "++" operator.
+
 11.the foreach loop in scala is available for every collections.foreach takes only the functions.
 	val x:String = "test"
 	x.foreach(println) // passing function as a parameter to the another function this why it is called that functions are the 	first class citizens.(Here String "test" is nothing but a collection of characters)
@@ -73,6 +93,9 @@ g.In scala we declare variables in one manner where the scala converts the varia
 	//by using the guard condition it will check the conditions in the loop itself
 	Ex:for(cust <- CustList if cust.isactive()) // it will only trigger the customers who are active.(Real-Time)
 	//if is an predicate value.
+
+-->However,we will not use for loop very extensively, if we want to iterate through a collection of elements we will use foreach loop instead.
+
 15.in yield the result of each for loop iteration is stored in a list(vector)
 	for(i <- 1 to 5 if i%2==0) yield(i)
 this will typically gets stored in a vector.
@@ -97,6 +120,12 @@ note:: It is the best practice to give the default parameter list at the end.if 
 	def fun(i:Int=10;j:int):Unit={}
 	//if we call the method fun(20) //it will expect that the argument is passed for i and not for j so it will throw the error.
 to overcome this we can call the function by fun(j=20) and hence it is the best practice to use the default at the end of the parameter list.
+
+Functions::
+------------
+
+
+
 18.Scala::Collections
 ---------------------
 i.Arrays::
@@ -330,10 +359,13 @@ println("fun2 method")
 
 doubts::
 ---------
-1.what is functional programming
+1.what is meant functional programming?
+what is imperative programming language?
 2.why immutability vs mutability is major concern
 3.difference b/w primitive and non primitive types.
 4.what is the difference between the method and function in scala.
+5.why scala is preferred than java(advantages)
+6.why scala is choosed for developing spark?
 
 
 
