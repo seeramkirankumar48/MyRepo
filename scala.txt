@@ -1,6 +1,6 @@
 scala::
 ---------
-1.scala was introduced in the year 2001 by martin odersky it gained momentum with spark there are frameworks available to develop the webapplications using scala called akka or play framework.
+1.scala was introduced in the year 2003 by martin odersky it gained momentum with spark there are frameworks available to develop the webapplications using scala called akka or play framework.
 2.scala follows the functional programming paradigm as well as object oriented programming.
 a.for printing a statement in java we need a class,main method and with in the main method there should be a statement with System.out.println("dfdfdfd"); we need this much of code. where as in scala(functional programming) we only need to specify the println("dfdfdf") statement it will indeed evaluate into the required class types and pass it to the JVM.
 3.the scala repl or (scala shell) or Scala CLI is a tool for evaluating expressions in scala in an interactive mode.
@@ -123,6 +123,265 @@ to overcome this we can call the function by fun(j=20) and hence it is the best 
 
 Functions::
 ------------
+-->Functions can be written in 5 types
+1.normal functions
+Ex:
+def fact(i:Int)={
+     | var res=1
+     | for(ele <- i to 1 by -1) res*=ele
+     | res
+     | }
+calling::fact(10)
+-->if the function is returning the Unit value then there is no need of "="
+Ex:
+ def f(i:Int)
+ {
+ println(i)
+ }
+
+2.recursive functions-- a function calling itself again and again.
+Ex::
+def factr(i:Int):Int={
+     | if(i==1)1 else i*factr(i-1)
+     | }
+Note::for the recursive methods there should be always a return type mentioned.
+-->its not appreciated to use the recursive methods since it will use the stack. based on the input parameter provided the call stack may grow and that's why it is not worth using the recursive methods.
+
+3.nested functions-- a function within an another function is called nested function.
+
+Ex::
+def nCr(n: Int, r: Int) = { 
+   def fact(i: Int) = { 
+     var res = 1 
+     for(e <- i to 1 by -1) 
+       res = res * e 
+     res 
+   } 
+ 
+ 
+   fact(n)/(fact(n-r) * fact(r)) 
+ } 
+
+4.Higher-Order functions::
+--> A function can be either an function parameter or else it can be an functin return value.
+Ex::
+def sum(f:Int=>Int,a:Int,b:Int)
+{
+var res=0
+for(ele <- a to b) res+=f(ele)
+println(res)
+}
+
+def sumOfSqr(i:Int):Int={math.pow(i,2).toInt}
+
+calling::sum(sumOfSqr,1,10)
+
+5.Anonymous functions::
+a function without a name is called anonymous function.
+-->we can assign anonymous functions to the variables also.
+Ex::
+def sum(f:Int=>Int,a:Int,b:Int)
+{
+var res=0
+for(ele <- a to b) res+=f(ele)
+println(res)
+}
+
+calling:: sum((i)=>math.pow(i,2).toInt,1,10)
+
+-->If we want to pass the function with more than one parameter then use "()"
+Ex:
+ def fun(f:(String,String)=>String):String={
+     | f("Hello ","World ")+"Kiran"
+     | }
+fun: (f: (String, String) => String)String
+
+Calling::fun((i:String,j:String)=>i.concat(j))
+O/p::res0: String = Hello World Kiran
+
+
+Operators::
+-----------
+-->In scala each and every operator is a function(+,-,==)
+-->val(a,b)=(1,2) //represents two variables of val type
+we can add these two numbers by directly calling a+b or 
+a.+(b) it will give the same result "3"
+-->In scala the == and equals are same
+-->the == function will invoke the equals method internally.
+so if we override the equals method this will internally change the == method also.
+-->eq is the function which will compare whether 2 objects pointing to same byte address of the object (similar to == in Java)
+
+Scala Classes and objects::
+---------------------------
+Object::
+--------
+-->scala doesn't support static keyword like in java.
+-->object is like a singleton class.
+-->we can pass main function as part of the object.
+-->all the functions and variables declared in object are treated as static
+-->we cannot pass arguments to the object(like constructors)
+-->the filename and object name can be different.
+
+Example program for ncr using object::
+--------------------------------------
+object HelloWorld {
+def main(args:Array[String]){
+  
+  val firstNumber=args(0).toInt
+  val secondNumber=args(1).toInt
+  println(ncr(firstNumber,secondNumber))
+}
+
+def ncr(n:Int,r:Int)={
+  
+  def fact(i:Int)={
+    var res=1
+    for(ele <- i to 1 by -1) res*=ele
+    res
+  }
+  fact(n)/(fact(r)*fact(n-r))
+}
+
+}
+
+Classes::
+---------
+-->Unlike java, it takes only few lines of code to create classes along with boiler plate code.
+-->we can check the boilerplate code by using the snippet::
+:javap -P Department
+-->class Department(departmentId:Int,departmentName:String)
+in this case there will not be any getters and setters as these constructor variables are neither immutable nor mutable.
+-->if we specify val before like::
+class Department(val departmentId:Int,val departmentName:String)
+in this case there will be only getters not setters as these are val types.
+-->if we specify var before like::
+class Department(var departmentId:Int,var departmentName:String)
+in this case there will be both getters and setters as these are var variables.
+-->it is not that straight forward to override the default getters and setters.
+-->we can provide the behavior of the constructor between the lines { }
+-->all the lines of code except for the methods are treated as the constructor behavior.
+-->if we want to validate the arguments before creating the object we have to use the special type of method called require()
+-->we can define mutliple constructors(constructor overloading) by using this keyword.
+-->All the types inherit from Any.
+-->AnyVal(value types such as Int,Long) and AnyRef(Classes such as String) will inherit from Any.
+-->The subtype for AnyRef is Null.
+-->Nothing is the subtype for both AnyVal and Null.
+-->we can override functions by using override keyword.
+
+Ex::
+/**
+ *
+ */
+package com.laboros.test
+
+object hw{
+  def main(args:Array[String]):Unit={
+    println("Hello World")
+    val dept=new Department(1,"HR")
+    println(dept) //prints the address of the object it is not overrided(toString)
+    println(dept.toString()) //as the toString() method is overrided it will call to String method
+   
+    println(dept.departmentId)
+    println(dept.departmentName)
+    dept.departmentName="IT" //we can assign the value only when it is of var type with 
+                            // val type we can read only if it is nothing we can neither initialize nor read
+    println(dept.departmentName)    
+    
+    val dept1=new Department(-2,"LCA")// require method is used to perform validations whille initializing the object
+    println(dept1.departmentId) //throws error as departmentId is negative number.
+    println(dept1.departmentName)
+    
+    val dept2=new Department(3)
+    println(dept2.departmentId)
+    println(dept2.departmentName)
+    
+  }
+}
+
+class Department(var departmentId:Int,var departmentName:String){
+  
+  println("In the Start of Constructor")
+  
+  def this(departmentId:Int)={
+    
+    this(departmentId,null)
+     println("In 1 parameter Constructor")
+   
+  }
+  
+  require(departmentId>0,"DepartmentId Should be greater than zero")
+  
+  override
+  def toString():String={
+    "1"+":"+"HR"
+  }
+  
+  println("In the End of the Constructor")
+}
+
+o/p::
+Hello World
+In the Start of Constructor
+In the End of the Constructor
+1:HR
+1:HR
+1
+HR
+IT
+In the Start of Constructor
+Exception in thread "main" java.lang.IllegalArgumentException: requirement failed: DepartmentId Should be greater than zero
+	at scala.Predef$.require(Predef.scala:219)
+	at com.laboros.test.Department.<init>(hw.scala:41)
+	at com.laboros.test.hw$.main(hw.scala:19)
+	at com.laboros.test.hw.main(hw.scala)
+
+Companion Objects::
+-------------------
+-->if the class and object has same name then it is termed as "Companion objects"
+-->a companion object can access the private members also.
+
+Ex::
+package com.laboros.test
+
+
+class Student(var sid:Int,var fname:String,var lname:String){
+  private def fullName()={
+   println(fname+" "+lname)
+  }
+ 
+}
+
+object Student{
+  def apply(i:Int,f:String,l:String)={
+    val s=new Student(i,f,l)
+    s.fullName()
+  }
+}
+
+object Hello{
+  def main(args:Array[String]){
+    val stu=Student(1,"xxx","yyy")
+    //println(stu.fullName())
+    //stu.print()
+  }
+}
+
+case classes::
+--------------
+-->Case classes are special type of classes
+-->Serializable
+-->Parameters for the constructors are by default val
+-->Contains companion objects
+-->Provide implementation for apply method
+-->Overrides toString method
+-->Provide getters if the variables are of type val
+-->Provide getters and setters if the variables are of type var
+-->Provide additional methods such as productArity, productIterator etc
+-->Case classes are very important for Data Frames and Spark native sql
+
+Ex::
+
+
 
 
 
@@ -366,6 +625,11 @@ what is imperative programming language?
 4.what is the difference between the method and function in scala.
 5.why scala is preferred than java(advantages)
 6.why scala is choosed for developing spark?
+7.to watch the setting up ide from itversity in eclipse and intellij both
+8.what are primitive types and what are the advantages of using primitive types rather than using class types?
+9.
+
+
 
 
 
