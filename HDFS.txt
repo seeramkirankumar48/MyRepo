@@ -3,7 +3,7 @@ when size of the file is larger than the size of the disk it is neccessary to st
 
 hdfs is used to store the large files with streaming data access patterns on an commodity hardware.
 
-streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks(as data is in the block) and maximum I/O of the disk.hdfs follows WORM (write once read many times) (data is written once and various types of analysis or performed on data)pattern hence there is much emphasis on reading many times for different jobs.
+streaming data access pattern is such that it can read the entire data(in blocks) off from the disk using minimal seeks(as data is represented in terms of block) and maximum I/O of the disk.hdfs follows WORM (write once read many times) (data is written once and various types of analysis or performed on data)pattern hence there is much emphasis on reading many times for different jobs.
 
 hdfs can tolerate the node failure.
 
@@ -20,7 +20,7 @@ the maximum amount of files that we can store in the hadoop cluster is determine
 3.multiple writers and arbitrary modifications::
 hadoop doesn't support for the multiple writers and whenever we want to modify a file it only appends at the end of the file in append only fashion so we cannot modify a file in between.
 
--->hdfs stores the data interms of blocks of size 128mb(configurable).
+-->hdfs stores the data interms of blocks of size 128mb which is(configurable).
 -->this is quite different as from that of the underlying file system where if the size of the file is 1mb it wont occupy all of the size of 128mb it only occupies the 1mb and releases 127mb of freespace for the other files.
 
 Advantages of file abstraction::
@@ -36,21 +36,21 @@ hdfs fsck / -files -blocks
 -->hdfs cluster comprises of nodes::
 there is a master node and number of slave nodes::
 the master node stores the metadata namespace of the files.
-the master node also knows which file has stored in which of the datanodes.however it doesn't store this data persistently since it is retrieved automatically when the system restarts and it(datanode sends which blocks it has) is sent to the NN in the form of heartbeats.
+the master node also knows which file has stored in which of the datanodes.however it doesn't store this data persistently since it is retrieved automatically when the system restarts and it(datanode) sends which blocks it has is sent to the NN in the form of heartbeats.
 
 -->the NN maintains the metadata information in 2 files namely,
-FSImage (filesystem image)
+FSImage (filesystem image),
 editslog
 When the NN containing information is lost the complete information in the cluster is lost and there is no way to construct the data from the datanodes.
 hence it is called as SPOF(single point of failure).
 so, it is required to maintain the NN data persistent to failures.
 there are 2 ways to do this::
-1.maintaining the metadata writes in 2 places such as local as well NFS(network file system)
+1.maintaining the metadata writes in 2 places such as local as well NFS(network file system) such as nfsv3
 2.maintaining the secondary name node::
 the SNN will keepon merging the namespace image by not growing the edits log file by certain configurations such as limiting the transactions or for a particular amount of time. hence it is obvious that in the event of complete failure of the NN there is only a minimal amount of data loss(edits log info).In the event of NN failure the secondary NN may and can be configured by loading the entire information on NFS to inmemory and act it as a NN.
 
 Block Caching::
-the most frequently used blocks in the datanode are cached(block cache) per datanode which in turn will be useful when running the mapreduce tasks on them.
+the most frequently used blocks in the datanode are cached(block cache) per datanode which in turn will be useful while running the mapreduce tasks on them.
 users or applications instruct the NN which files to cache and for how long by adding a cache directive to the cache pool. 
 
 Namenode HA::
@@ -105,7 +105,10 @@ doubts::
 1.what are the different configurations in the different config files?
 2.what are inodes?
 3.what is the calculation of if seektime is 10ms in guide?
-4.
+4.what is qjm?
+5.what is nfs?
+6.why the block size is 128mb?
+7.
 
 
 implinks::
