@@ -627,7 +627,7 @@ what is imperative programming language?
 6.why scala is choosed for developing spark?
 7.to watch the setting up ide from itversity in eclipse and intellij both
 8.what are primitive types and what are the advantages of using primitive types rather than using class types?
-9.
+9.Are the functions are also treated as objects?
 
 
 
