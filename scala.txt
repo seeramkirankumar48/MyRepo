@@ -361,7 +361,7 @@ object Student{
 object Hello{
   def main(args:Array[String]){
     val stu=Student(1,"xxx","yyy")
-    //println(stu.fullName())
+    //println(stu.fullName()) //throws error as it is available with in the class
     //stu.print()
   }
 }
