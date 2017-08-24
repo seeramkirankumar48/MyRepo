@@ -380,9 +380,10 @@ case classes::
 -->Case classes are very important for Data Frames and Spark native sql
 
 Ex::
-
-
-
+case class Department(
+                       departmentId: Int,
+                       departmentName: String
+                     )
 
 
 18.Scala::Collections
