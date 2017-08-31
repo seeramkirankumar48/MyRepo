@@ -1,1 +1,11 @@
 length is just a parameter in the Array.
+In java it is always pass by value only.
+A base class is called superclass and the class which is inheriting that is called subclass.
+A subclass can inherit all the methods and instance variables from the super class.
+If a subclass has its own functionality then it can override the base class methods.(the instance variables of the super class are not overridden).
+To know if you've designed your types correctly, ask "Does it make sense to say type X is-a type Y"
+Inheritance is an "IS-A" relationship.
+Triangle is a shape but the reverse (shape is a Triangle is not true)
+if X IS-A Y (x->y) then X can do all the things that Y can do.
+you can invoke the super class method by super.method()
+
