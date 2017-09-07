@@ -139,5 +139,29 @@ it has 4 methods::
 3.int hashCode()
 4.String toString()
 
+a.different ways to create the object::
+-------------------------------------
+By new keyword
+By newInstance() method
+By clone() method
+By deserialization
+By factory method etc.
+
+b.ways to initialize object::
+-----------------------------
+By reference variable
+By method
+By constructor
+
+c.Anonymous objects::
+---------------------
+new Calculation().fact(5) //suitable only in the driver program only one instance is needed if there is more than one instance it will not be easy to call the object by reference variable.
+
+d.Creating multiple objects by one type only::
+----------------------------------------------
+Rectangle r1=new Rectangle(), r2=new Rectangle();//creating two objects  
+int a=10, b=20;  
+
+
 
 225
