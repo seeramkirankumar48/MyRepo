@@ -64,6 +64,8 @@ the "==" operator is used to check whether two variables values are same or not 
 
 -->The "Math" class is present in java.lang package. it also contains objects for Integer,Double,Float
 -->The ArrayList class present in the java.util package.
+-->the println statement(System.out.println()) is used from java.lang package under system class.
+-->The java.lang package is pre-imported into the program by default so that's why when we write System.out.println or Integer we shouldn't import these packages as these are already imported from java.lang package.
 
 ArrayLists::
 ------------
@@ -73,18 +75,69 @@ ArrayList<String> arr=new ArrayList<String>();
 ArrayList can grow or sink in size.
 
 2.unlike in array's we don't use [] to get the element.
-3.ArrayList accepts only Reference types.
+3.ArrayList accepts only Reference types and wrapping or unwrapping is automatically done by the compiler itself.
+ArrayList<Integer> arr=new ArrayList<Integer>();
 
 -->In java it is always pass by value only.
+
+Inheritance::
+-------------
 -->A base class is called superclass and the class which is inheriting that is called subclass.
 -->A subclass can inherit all the methods and instance variables from the super class.
--->If a subclass has its own functionality then it can override the base class methods.(the instance variables of the super class are not overridden).
--->To know if you've designed your types correctly, ask "Does it make sense to say type X is-a type Y"
+-->If a subclass has its own functionality then it can override the base class methods.(the instance variables of the super class are cannot be overridden).
+-->In an inheritance structure "the lowest one wins".
+Ex:Consider the inheritance structure::(Wolf->Canine->Animal)=>first it will check for the methods in the wolf if it is not there then it will check in the Canine or else it will call the method from Animal.
+1.IS-A vs HAS-A relationship::
+------------------------------
+IS-A ex::(Surgeon extends Doctor) is a specialized component of Doctor.
+HAS-A ex::classes (Tub,Sink) the Bathroom class has (Tub,Sink) i.e., the class Bathroom has components of both Tub and Sink.
+class Bathroom{
+Tub tub;
+Sink sink;
+}
+-->To know if you've designed your types correctly, ask "Does it make sense to say type X is-a type Y".
 -->Inheritance is an "IS-A" relationship.
--->Triangle is a shape but the reverse (shape is a Triangle is not true)
+-->Triangle is a shape but the reverse (shape is a Triangle is not true) so inheritance always allows in only one direction.
 -->if X IS-A Y (x->y) then X can do all the things that Y can do.
+
+2.common scenarios::
+--------------------
+a.what if the superclass wants to invoke the methods from subclass??
+-->the parent class cannot know about any of the child classes,but during the creation of the child class it must know the which parent class it is inheriting.so , the parent class cannot inherit from child.
+
+b.what if the subclass want to invoke bothe superclass version and its own version of the methods?? 
 -->you can invoke the super class method by super.method()
 
+-->The parent class may decide which fields or methods that a child class can inherit by providing the Access levels::
+public,private,protected,default
+-->we can override the parent class methods in the child class by mentioning the parameter called::@Override
+
+Polymorphism::
+--------------
+while creating the object, the object type and the reference type are same::
+Dog myDog=new Dog();
+but in polymorphims the object type and the reference type may not be same::
+Animal myDog=new Dog();
+so, in an inheritance relationship(IS-A), we can always reference the superclass type. 
+
+Rules for overriding::
+----------------------
+1.The method which is going to override must contain the same signature and same arguments.
+2.the overrided method should not be less accessible.
+
+Rules for Overloading::
+-----------------------
+-->Overloading is such that with same name we can define multiple functions:
+1.In java, method overloading is not possible by changing the return type of the method only because of ambiguity.
+
+Object::
+--------
+Each and every class implicitly extends the Object functionality::
+it has 4 methods::
+1.boolean equals()
+2.Class getClass() //it is a final method hence cannot be overrided.
+3.int hashCode()
+4.String toString()
 
 
-184
+225
