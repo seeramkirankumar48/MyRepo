@@ -120,15 +120,98 @@ but in polymorphims the object type and the reference type may not be same::
 Animal myDog=new Dog();
 so, in an inheritance relationship(IS-A), we can always reference the superclass type. 
 
-Rules for overriding::
+Method overriding::
 ----------------------
-1.The method which is going to override must contain the same signature and same arguments.
+-->It is used to achieve runtime polymorphism.
+Rules::
+-------
+1.The method which is going to override must contain the same signature,same arguments and same name.
 2.the overrided method should not be less accessible.
+3.must be in an IS-A relationship.
+
+-->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.
+public class MyClass {
+    public static void main(String args[]) {
+       Child p=new Child();
+       p.fun();
+    }
+}
+class Parent{
+    public void fun(){
+        System.out.println("Parent fun method");
+    }
+}
+class Child extends Parent{
+    protected void fun(){ //C.T error attempt to assing the weaker access previlages
+        System.out.println("Child fun method");
+    }
+}
+
+
 
 Rules for Overloading::
 -----------------------
--->Overloading is such that with same name we can define multiple functions:
+-->Overloading is such that with same name we can define multiple functions:it improves the readability of the program.
 1.In java, method overloading is not possible by changing the return type of the method only because of ambiguity.
+
+-->Method overloading is not possible by changing the return type of the method.
+class Adder{  
+static int add(int a,int b){return a+b;}  
+static double add(int a,int b){return a+b;}  
+}  
+class TestOverloading3{  
+public static void main(String[] args){  
+System.out.println(Adder.add(11,11));//ambiguity  to call which add method
+}}  
+
+-->We can overload the main method in the java program.but the jvm will look for static main method with string[] args parameter.
+
+Type Promotions::
+-----------------
+int-->float,long,double
+char-->int
+byte-->short,int
+short-->int
+long-->float,double
+float-->double
+
+Example of method overloading with type promotion::
+
+class OverloadingCalculation1{  
+  void sum(int a,long b){System.out.println(a+b);}  
+  void sum(int a,int b,int c){System.out.println(a+b+c);}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation1 obj=new OverloadingCalculation1();  
+  obj.sum(20,20);//now second int literal will be promoted to long  
+  obj.sum(20,20,20);  
+  
+  }  
+}  
+
+-->If there are matching type arguments in the method, type promotion is not performed..
+class OverloadingCalculation2{  
+  void sum(int a,int b){System.out.println("int arg method invoked");}  
+  void sum(long a,long b){System.out.println("long arg method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation2 obj=new OverloadingCalculation2();  
+  obj.sum(20,20);//now int arg sum() method gets invoked  
+  }  
+}  
+
+-->If there are no matching type arguments in the method, and each method promotes similar number of arguments, there will be ambiguity.
+class OverloadingCalculation3{  
+  void sum(int a,long b){System.out.println("a method invoked");}  
+  void sum(long a,int b){System.out.println("b method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation3 obj=new OverloadingCalculation3();  
+  obj.sum(20,20);//now ambiguity  
+  }  
+}  
+
+
 
 Object::
 --------
@@ -149,9 +232,18 @@ By factory method etc.
 
 b.ways to initialize object::
 -----------------------------
-By reference variable
-By method
-By constructor
+1.By reference variable
+s1.id=100;
+
+2.By method
+void insert(int i){
+id=i;
+}
+Student s1=new Student();
+s1.insert(100);
+
+3.By constructor
+Student s=new Student(100);
 
 c.Anonymous objects::
 ---------------------
@@ -162,6 +254,228 @@ d.Creating multiple objects by one type only::
 Rectangle r1=new Rectangle(), r2=new Rectangle();//creating two objects  
 int a=10, b=20;  
 
+Constructor::
+-------------
+Constructor is used to initialize the values to the objects.
+-->Even though if we didn't mention any constructor java implicitly provides the default constructor and provides the default values to the instance variables.
+There are 2 types of constructors.
+1.Default constructor
+2.parameterized constructor.
+
+we can copy the values of one object to the another object by any of the below methods::
+By constructor
+ Student6(Student6 s){  
+    id = s.id;  
+    name =s.name;  
+    }  
+    Student6 s1 = new Student6(111,"Karan");  
+    Student6 s2 = new Student6(s1);
+By assigning the values of one object into another
+ Student6 s1 = new Student6(111,"Karan");  
+ Student6 s2 = new Student6();
+ s2.id=s1.id;
+ s2.name=s2.name;
+By clone() method of Object class
+
+-->Constructors returns the value::yes, that is current class instance (You cannot use return type yet it returns a value).
+
+Infinitive Loops::
+------------------
+while(true)
+for(;;)
+
+-->we can save the java class file with other than class name by removing the public access modifier and running the java program with that classname.
+
+Static keyword::
+----------------
+-->The static keyword is mainly used for memory management in java.
+the static can be applied to the ::
+variable (also known as class variable)::
+-->The static variable can be used to refer the common property of all objects (that is not unique for each object) e.g. company name of employees,college name of students etc.
+-->The static variable gets memory only once in class area at the time of class loading.
+
+method (also known as class method)::
+-->A static method belongs to the class rather than object of a class.
+-->A static method can be invoked without the need for creating an instance of a class.
+-->static method can access static data member and can change the value of it.
+restrictions for static method::
+-->The static method can not use non static data member or call non-static method directly.
+-->this and super cannot be used in static context.
+
+block::
+-->Is used to initialize the static data member.
+-->It is executed before main method at the time of classloading.
+nested class
+
+this keyword::
+--------------
+1.this can be used to refer current class instance variable.
+Student(int rollno,String name,float fee){  
+rollno=rollno;  
+name=name;  
+fee=fee;  
+}  
+//here the parameter name and instance names are same so that's why it returns the o/p as:: 0 null 0.0
+-->to distinguish from parameters with instance variables use::
+Student(int rollno,String name,float fee){  
+this.rollno=rollno;  
+this.name=name;  
+this.fee=fee;  
+}  
+-->if the parameter names and instance names are different then there is no need of this keyword
+Student(int rollno,String name,float fee){  
+Srollno=rollno;  
+Sname=name;  
+Sfee=fee;  
+}
+
+2.this can be used to invoke current class method (implicitly)
+
+class A{  
+void m(){System.out.println("hello m");}  
+void n(){  
+System.out.println("hello n");  
+//m();//same as this.m()  
+this.m();  
+}  
+}  
+class TestThis4{  
+public static void main(String args[]){  
+A a=new A();  
+a.n();  
+}}  
+
+3.this() can be used to invoke current class constructor.
+
+class A{  
+A(){System.out.println("hello a");}  
+A(int x){  
+this();  
+System.out.println(x);  
+}  
+}  
+class TestThis5{  
+public static void main(String args[]){  
+A a=new A(10);  
+}}  
+
+//the parameterized constructor is calling the default constructor.
+-->The real use of the this() is used for constructor chaining.
+class Student{  
+int rollno;  
+String name,course;  
+float fee;  
+Student(int rollno,String name,String course){  
+this.rollno=rollno;  
+this.name=name;  
+this.course=course;  
+}  
+Student(int rollno,String name,String course,float fee){  
+this(rollno,name,course);//reusing constructor  
+this.fee=fee;  
+}  
+void display(){System.out.println(rollno+" "+name+" "+course+" "+fee);}  
+}  
+class TestThis7{  
+public static void main(String args[]){  
+Student s1=new Student(111,"ankit","java");  
+Student s2=new Student(112,"sumit","java",6000f);  
+s1.display();  
+s2.display();  
+}}   
+
+Rule:: Call to this() must be the first statement in constructor.
+
+4.this can be passed as an argument in the method call.
+The this keyword can also be used as passing a parameter to the method.mainly, it is used in the event handling.
+class S2{  
+  void m(S2 obj){  
+  System.out.println("method is invoked");  
+  }  
+  void p(){  
+  m(this);  
+  }  
+  public static void main(String args[]){  
+  S2 s1 = new S2();  
+  s1.p();  
+  }  
+}  
+
+5.this can be passed as argument in the constructor call.
+We can pass the this keyword in the constructor also. It is useful if we have to use one object in multiple classes.
+class B{  
+  A4 obj;  
+  B(A4 obj){  
+    this.obj=obj;  
+  }  
+  void display(){  
+    System.out.println(obj.data);//using data member of A4 class  
+  }  
+}  
+  
+class A4{  
+  int data=10;  
+  A4(){  
+   B b=new B(this);  
+   b.display();  
+  }  
+  public static void main(String args[]){  
+   A4 a=new A4();  
+  }  
+}  
+
+
+6.this can be used to return the current class instance from the method.
+-->We can return this keyword as an statement from the method. In such case, return type of the method must be the class type.
+class A{  
+A getA(){  
+return this;  
+}  
+void msg(){System.out.println("Hello java");}  
+}  
+class Test1{  
+public static void main(String args[]){  
+new A().getA().msg();  
+}  
+}  
+
+-->To prove that this keyword always point to the current instance.
+
+public class MyClass {
+    public void m(){
+        System.out.println(this);
+    }
+  public static void main(String[] args){
+      MyClass c=new MyClass();
+      System.out.println(c);
+      c.m();
+      
+  }
+}
+
+Inheritance::
+-------------
+inheritance is used to achieve code reusability.
+1.single.
+2.multilevel
+3.hierrarichal
+4.multiple
+multiple inheritance is such that there would two or more classes(super classes) and a subclass deriving from that super classes.
+multiple inheritance is not supported in java.it is supported with interfaces.
+ex::
+class A{  
+void msg(){System.out.println("Hello");}  
+}  
+class B{  
+void msg(){System.out.println("Welcome");}  
+}  
+class C extends A,B{//suppose if it were  
+   
+ Public Static void main(String args[]){  
+   C obj=new C();  
+   obj.msg();//Now which msg() method would be invoked?  throws c.t error
+}  
+}  
 
 
 225
