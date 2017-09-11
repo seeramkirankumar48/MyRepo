@@ -51,6 +51,7 @@ g.In scala we declare variables in one manner where the scala converts the varia
 		x*2 // it will intialize the value of x to 10 and then it will do the computation.
 		//20
 	we can use this lazy loading for any of the variables including (file loading).
+	lazy can be applied only on val types.
 
 -->when a variable is created with the block in it whatever the last value is there it is initialized to that particular variable.when there is nothing it will assign the return type Unit.
 -->the ternary operator is written with if-else statement in scala using a single line
