@@ -12,7 +12,7 @@ to know version--scala -version
 to quit from scala repl -- :quit
 to enter multiple lines and execute them at a single go use--
 :paste
-to see the available methods in that particular reference variable after . hit tab key
+to see the available methods in that particular reference variable, after . hit tab key
 to clear the screen-- CTRL+L
 to exit from the paste mode -- CTRL+D
 to reset all the results in the REPL -- :reset
