@@ -5,6 +5,45 @@ Imp points::
 -->if there are 100 classes it is not that easy to deliver all the classes to the client(since misses can happen) so it is quite easy if we package them into a .jar file and specify the manifest file where the main method is.
 -->Arrays are always the objects whether they hold the primitive types or reference types.
 -->length is just a parameter in the Array.
+-->In java,we can save a file other than the className of that particular java file but it should not be decorated with public identifier
+Ex1::
+Sample.java is the file name where it contains two classes A,B
+class A{
+}
+class B{
+}
+you can compile as javac Sample.java
+but to know Class A,B you should run with java A || java B
+
+Ex2::
+consider a java file is saved with public identifier
+you should run and compile with that public identified file.
+
+var args::
+----------
+-->In java, a method can take variable number of arguments it is represented by three ellipses (...)
+public static void main(String...args){
+}
+
+Java variables::
+----------------
+-->There are 3 types of variables in java::
+1.local variables
+2.instance variables
+3.static variables
+
+--> There are 2 types of data types::
+1.primitive
+2.non-primitive(String,Array)
+
+-->Java follows unicode format.
+
+Operators::
+------------
+++,-- are called as unary operators.
+ternary operator::
+?:
+int min=(a<b)?a:b;
 -------------------------
 Disadvantages of Arrays::
 -------------------------
