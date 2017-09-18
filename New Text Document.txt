@@ -518,3 +518,8 @@ class C extends A,B{//suppose if it were
 
 
 225
+
+ToCheck::
+---------
+1.what are the contents inside the jdk and jre folders.
+
