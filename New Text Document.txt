@@ -44,6 +44,20 @@ Operators::
 ternary operator::
 ?:
 int min=(a<b)?a:b;
+
+Java loops::
+------------
+Infinite loops::
+-->while(true)
+-->Infinite for loop :: for(;;)
+-->do{
+    }while(true);
+    
+break and continue::
+--------------------
+-->The break statment will break out from the inner most loop and the continue statement is used to continue the loop skiping the current statement.
+
+
 -------------------------
 Disadvantages of Arrays::
 -------------------------
@@ -522,4 +536,26 @@ class C extends A,B{//suppose if it were
 ToCheck::
 ---------
 1.what are the contents inside the jdk and jre folders.
+2.program to check::
+import java.util.*;
+public class MyClass {
+    static int n1=0,n2=1,n3=1;
+    public static void main(String args[]) {
+      System.out.println("Enter the fibo number:");
+      Scanner scr=new Scanner(System.in);
+      int number=scr.nextInt();
+      System.out.println(n1+"\n"+n2);
+      fibo(number-2);
+    }
+    public static void fibo(int count){
+        while(count>0){
+            System.out.println("Iteration number:"+count);
+            n3=n1+n2;
+            System.out.println(n3);
+            n1=n2;
+            n2=n3;
+           fibo(count-1);
+        }
+    }
+}
 
