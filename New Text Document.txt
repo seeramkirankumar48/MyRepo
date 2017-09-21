@@ -243,7 +243,8 @@ the object reference variables(s1,s2) are stored on stack, the objects (Student(
 2.method (also known as class method)::
 -->A static method belongs to the class rather than object of a class.
 -->A static method can be invoked without the need for creating an instance of a class.
--->static method can access static data member and can change the value of it.
+-->static method can access only the static data member and can change the value of it.
+-->Instance method can also change the value of the static member.
 restrictions for static method::
 -->The static method can not use non static data member or call non-static method directly.
 -->this and super cannot be used in static context.
@@ -448,6 +449,14 @@ b.what if the subclass want to invoke bothe superclass version and its own versi
 public,private,protected,default
 -->we can override the parent class methods in the child class by mentioning the parameter called::@Override
 
+Types of Inheritance::
+---------------------
+1.single
+2.multiple
+3.hierrarichal
+4.multiple
+5.hybrid
+
 Polymorphism::
 --------------
 while creating the object, the object type and the reference type are same::
@@ -599,4 +608,4 @@ public class MyClass {
         }
     }
 }
-
+3.methods with same signature but differentiated with static and normal methods.
