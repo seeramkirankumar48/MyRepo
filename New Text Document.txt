@@ -293,7 +293,7 @@ void insert(int i){
 id=i;
 }
 Student s1=new Student();
-s1.insert(100);
+s1.insert(100); //initialization using method "insert"
 
 3.By constructor
 Student s=new Student(100);
@@ -310,25 +310,41 @@ int a=10, b=20;
 Constructor::
 -------------
 Constructor is used to initialize the values to the objects.
--->Even though if we didn't mention any constructor java implicitly provides the default constructor and provides the default values to the instance variables.
+Rules::
+1.Constructor name must be same as className.
+2.Constructor must not have explicit return type.
+-->Even though if we didn't mention any constructor java implicitly provides the default constructor and provides the default values to the instance variables.but if we provide our own constructor then the default constructor doesn't exist.
 There are 2 types of constructors.
 1.Default constructor
 2.parameterized constructor.
 
+example that the default constructor initializes to default values::
+class Student{
+int sid;
+String sname;
+public void display(){
+System.out.println(sid+" "+sname); // the default constructor intializes to zero and null and it will be done implicitly.
+}
+public static void main(String[] args){
+Student s1=new Student();
+s1.display();
+}
+}
+
 we can copy the values of one object to the another object by any of the below methods::
-By constructor
+1.By constructor
  Student6(Student6 s){  
     id = s.id;  
     name =s.name;  
     }  
     Student6 s1 = new Student6(111,"Karan");  
     Student6 s2 = new Student6(s1);
-By assigning the values of one object into another
+2.By assigning the values of one object into another through reference variables
  Student6 s1 = new Student6(111,"Karan");  
  Student6 s2 = new Student6();
  s2.id=s1.id;
  s2.name=s2.name;
-By clone() method of Object class
+3.By clone() method of Object class
 
 -->Constructors returns the value::yes, that is current class instance (You cannot use return type yet it returns a value).
 
