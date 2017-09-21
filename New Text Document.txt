@@ -1,6 +1,6 @@
 Imp points::
 ------------
--->In java, a boolean value cannot hold the integer value it holds only true or false.
+-->In java, a boolean data type value cannot hold the integer value it holds only true or false.
 -->All the objects are stored in the Garbage-collectible heap. so if there are any unreferenced objects those are collected by the garbage collector.
 -->if there are 100 classes it is not that easy to deliver all the classes to the client(since misses can happen) so it is quite easy if we package them into a .jar file and specify the manifest file where the main method is.
 -->Arrays are always the objects whether they hold the primitive types or reference types.
@@ -31,6 +31,21 @@ Java variables::
 1.local variables
 2.instance variables
 3.static variables
+
+Difference between local variables and instance variables::
+-----------------------------------------------------------
+Local variables::
+-----------------
+These are declared inside the method.
+instance variables::
+--------------------
+These are declared inside the class.
+1.The instance variables can have the default values where as for the local variables they need to be initialized before the usage.
+-->The instance variables are need not be intitialized even though without initialization they have the default values::
+int - 0
+float - 0.0
+object(references) & string - null
+boolean - false
 
 --> There are 2 types of data types::
 1.primitive
@@ -96,21 +111,9 @@ class Student{
         this.sid=id;
     }
 }
--->The instance variables are need not be intitialized even though without initialization they have the default values::
-int - 0
-float - 0.0
-object(references) & string - null
-boolean - false
+
 -----------------------------------------------------------
-Difference between local variables and instance variables::
------------------------------------------------------------
-Local variables::
------------------
-These are declared inside the method.
-instance variables::
---------------------
-These are declared inside the class.
-1.The instance variables can have the default values where as for the local variables they need to be initialized before the usage.
+
 == Operator::
 -------------
 the "==" operator is used to check whether two variables values are same or not and it is also used to check whether two reference variables are pointing to the same object or not. In order to compare the objects itself use the equals() method.
@@ -119,151 +122,6 @@ the "==" operator is used to check whether two variables values are same or not 
 -->The ArrayList class present in the java.util package.
 -->the println statement(System.out.println()) is used from java.lang package under system class.
 -->The java.lang package is pre-imported into the program by default so that's why when we write System.out.println or Integer we shouldn't import these packages as these are already imported from java.lang package.
-
-ArrayLists::
-------------
-1.While creation of ArrayList we need not specify any size.
-
-ArrayList<String> arr=new ArrayList<String>();
-ArrayList can grow or sink in size.
-
-2.unlike in array's we don't use [] to get the element.
-3.ArrayList accepts only Reference types and wrapping or unwrapping is automatically done by the compiler itself.
-ArrayList<Integer> arr=new ArrayList<Integer>();
-
--->In java it is always pass by value only.
-
-Inheritance::
--------------
--->A base class is called superclass and the class which is inheriting that is called subclass.
--->A subclass can inherit all the methods and instance variables from the super class.
--->If a subclass has its own functionality then it can override the base class methods.(the instance variables of the super class are cannot be overridden).
--->In an inheritance structure "the lowest one wins".
-Ex:Consider the inheritance structure::(Wolf->Canine->Animal)=>first it will check for the methods in the wolf if it is not there then it will check in the Canine or else it will call the method from Animal.
-1.IS-A vs HAS-A relationship::
-------------------------------
-IS-A ex::(Surgeon extends Doctor) is a specialized component of Doctor.
-HAS-A ex::classes (Tub,Sink) the Bathroom class has (Tub,Sink) i.e., the class Bathroom has components of both Tub and Sink.
-class Bathroom{
-Tub tub;
-Sink sink;
-}
--->To know if you've designed your types correctly, ask "Does it make sense to say type X is-a type Y".
--->Inheritance is an "IS-A" relationship.
--->Triangle is a shape but the reverse (shape is a Triangle is not true) so inheritance always allows in only one direction.
--->if X IS-A Y (x->y) then X can do all the things that Y can do.
-
-2.common scenarios::
---------------------
-a.what if the superclass wants to invoke the methods from subclass??
--->the parent class cannot know about any of the child classes,but during the creation of the child class it must know the which parent class it is inheriting.so , the parent class cannot inherit from child.
-
-b.what if the subclass want to invoke bothe superclass version and its own version of the methods?? 
--->you can invoke the super class method by super.method()
-
--->The parent class may decide which fields or methods that a child class can inherit by providing the Access levels::
-public,private,protected,default
--->we can override the parent class methods in the child class by mentioning the parameter called::@Override
-
-Polymorphism::
---------------
-while creating the object, the object type and the reference type are same::
-Dog myDog=new Dog();
-but in polymorphims the object type and the reference type may not be same::
-Animal myDog=new Dog();
-so, in an inheritance relationship(IS-A), we can always reference the superclass type. 
-
-Method overriding::
-----------------------
--->It is used to achieve runtime polymorphism.
-Rules::
--------
-1.The method which is going to override must contain the same signature,same arguments and same name.
-2.the overrided method should not be less accessible.
-3.must be in an IS-A relationship.
-
--->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.
-public class MyClass {
-    public static void main(String args[]) {
-       Child p=new Child();
-       p.fun();
-    }
-}
-class Parent{
-    public void fun(){
-        System.out.println("Parent fun method");
-    }
-}
-class Child extends Parent{
-    protected void fun(){ //C.T error attempt to assing the weaker access previlages
-        System.out.println("Child fun method");
-    }
-}
-
-
-
-Rules for Overloading::
------------------------
--->Overloading is such that with same name we can define multiple functions:it improves the readability of the program.
-1.In java, method overloading is not possible by changing the return type of the method only because of ambiguity.
-
--->Method overloading is not possible by changing the return type of the method.
-class Adder{  
-static int add(int a,int b){return a+b;}  
-static double add(int a,int b){return a+b;}  
-}  
-class TestOverloading3{  
-public static void main(String[] args){  
-System.out.println(Adder.add(11,11));//ambiguity  to call which add method
-}}  
-
--->We can overload the main method in the java program.but the jvm will look for static main method with string[] args parameter.
-
-Type Promotions::
------------------
-int-->float,long,double
-char-->int
-byte-->short,int
-short-->int
-long-->float,double
-float-->double
-
-Example of method overloading with type promotion::
-
-class OverloadingCalculation1{  
-  void sum(int a,long b){System.out.println(a+b);}  
-  void sum(int a,int b,int c){System.out.println(a+b+c);}  
-  
-  public static void main(String args[]){  
-  OverloadingCalculation1 obj=new OverloadingCalculation1();  
-  obj.sum(20,20);//now second int literal will be promoted to long  
-  obj.sum(20,20,20);  
-  
-  }  
-}  
-
--->If there are matching type arguments in the method, type promotion is not performed..
-class OverloadingCalculation2{  
-  void sum(int a,int b){System.out.println("int arg method invoked");}  
-  void sum(long a,long b){System.out.println("long arg method invoked");}  
-  
-  public static void main(String args[]){  
-  OverloadingCalculation2 obj=new OverloadingCalculation2();  
-  obj.sum(20,20);//now int arg sum() method gets invoked  
-  }  
-}  
-
--->If there are no matching type arguments in the method, and each method promotes similar number of arguments, there will be ambiguity.
-class OverloadingCalculation3{  
-  void sum(int a,long b){System.out.println("a method invoked");}  
-  void sum(long a,int b){System.out.println("b method invoked");}  
-  
-  public static void main(String args[]){  
-  OverloadingCalculation3 obj=new OverloadingCalculation3();  
-  obj.sum(20,20);//now ambiguity  
-  }  
-}  
-
 
 
 Object::
@@ -348,22 +206,41 @@ we can copy the values of one object to the another object by any of the below m
 
 -->Constructors returns the value::yes, that is current class instance (You cannot use return type yet it returns a value).
 
-Infinitive Loops::
-------------------
-while(true)
-for(;;)
-
--->we can save the java class file with other than class name by removing the public access modifier and running the java program with that classname.
 
 Static keyword::
 ----------------
 -->The static keyword is mainly used for memory management in java.
 the static can be applied to the ::
-variable (also known as class variable)::
+1.variable (also known as class variable)::
 -->The static variable can be used to refer the common property of all objects (that is not unique for each object) e.g. company name of employees,college name of students etc.
 -->The static variable gets memory only once in class area at the time of class loading.
 
-method (also known as class method)::
+??how it will save the memory::
+suppose say a class:
+class Student{
+int sid;
+String sname;
+String college="ITU";
+public Student(int sid,String sname){
+this.sid=sid;
+this.sname=sname;
+}
+}
+public class Test{
+public static void main(String[] args){
+Student s1=new Student(1,"xxxxx");
+Student s2=new Student(2,"yyyyy");
+}
+}
+now, if we create 500 objects each object has the value college pointing to the string "ITU", now since this property is common to all the objects in the class so if we make it as static then there will be only one variable shared across to all the objects.
+
+IMP::static gets memory at the time of class loading.
+
+variables storage::
+the object reference variables(s1,s2) are stored on stack, the objects (Student(1,"xxxxx"),Student(2,"yyyyy")) are stored on garbage collectible Heap, and the static variable is stored in the ClassArea.
+
+
+2.method (also known as class method)::
 -->A static method belongs to the class rather than object of a class.
 -->A static method can be invoked without the need for creating an instance of a class.
 -->static method can access static data member and can change the value of it.
@@ -371,10 +248,13 @@ restrictions for static method::
 -->The static method can not use non static data member or call non-static method directly.
 -->this and super cannot be used in static context.
 
-block::
+3.block::
 -->Is used to initialize the static data member.
 -->It is executed before main method at the time of classloading.
 nested class
+
+4.Nestedclass
+
 
 this keyword::
 --------------
@@ -521,6 +401,151 @@ public class MyClass {
       
   }
 }
+
+
+ArrayLists::
+------------
+1.While creation of ArrayList we need not specify any size.
+
+ArrayList<String> arr=new ArrayList<String>();
+ArrayList can grow or sink in size.
+
+2.unlike in array's we don't use [] to get the element.
+3.ArrayList accepts only Reference types and wrapping or unwrapping is automatically done by the compiler itself.
+ArrayList<Integer> arr=new ArrayList<Integer>();
+
+-->In java it is always pass by value only.
+
+Inheritance::
+-------------
+-->A base class is called superclass and the class which is inheriting that is called subclass.
+-->A subclass can inherit all the methods and instance variables from the super class.
+-->If a subclass has its own functionality then it can override the base class methods.(the instance variables of the super class are cannot be overridden).
+-->In an inheritance structure "the lowest one wins".
+Ex:Consider the inheritance structure::(Wolf->Canine->Animal)=>first it will check for the methods in the wolf if it is not there then it will check in the Canine or else it will call the method from Animal.
+1.IS-A vs HAS-A relationship::
+------------------------------
+IS-A ex::(Surgeon extends Doctor) is a specialized component of Doctor.
+HAS-A ex::classes (Tub,Sink) the Bathroom class has (Tub,Sink) i.e., the class Bathroom has components of both Tub and Sink.
+class Bathroom{
+Tub tub;
+Sink sink;
+}
+-->To know if you've designed your types correctly, ask "Does it make sense to say type X is-a type Y".
+-->Inheritance is an "IS-A" relationship.
+-->Triangle is a shape but the reverse (shape is a Triangle is not true) so inheritance always allows in only one direction.
+-->if X IS-A Y (x->y) then X can do all the things that Y can do.
+
+2.common scenarios::
+--------------------
+a.what if the superclass wants to invoke the methods from subclass??
+-->the parent class cannot know about any of the child classes,but during the creation of the child class it must know the which parent class it is inheriting.so , the parent class cannot inherit from child.
+
+b.what if the subclass want to invoke bothe superclass version and its own version of the methods?? 
+-->you can invoke the super class method by super.method()
+
+-->The parent class may decide which fields or methods that a child class can inherit by providing the Access levels::
+public,private,protected,default
+-->we can override the parent class methods in the child class by mentioning the parameter called::@Override
+
+Polymorphism::
+--------------
+while creating the object, the object type and the reference type are same::
+Dog myDog=new Dog();
+but in polymorphims the object type and the reference type may not be same::
+Animal myDog=new Dog();
+so, in an inheritance relationship(IS-A), we can always reference the superclass type. 
+
+Method overriding::
+----------------------
+-->It is used to achieve runtime polymorphism.
+Rules::
+-------
+1.The method which is going to override must contain the same signature,same arguments and same name.
+2.the overrided method should not be less accessible.
+3.must be in an IS-A relationship.
+
+-->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.
+public class MyClass {
+    public static void main(String args[]) {
+       Child p=new Child();
+       p.fun();
+    }
+}
+class Parent{
+    public void fun(){
+        System.out.println("Parent fun method");
+    }
+}
+class Child extends Parent{
+    protected void fun(){ //C.T error attempt to assing the weaker access previlages
+        System.out.println("Child fun method");
+    }
+}
+
+
+
+Rules for Overloading::
+-----------------------
+-->Overloading is such that with same name we can define multiple functions:it improves the readability of the program.
+1.In java, method overloading is not possible by changing the return type of the method only because of ambiguity.
+
+-->Method overloading is not possible by changing the return type of the method.
+class Adder{  
+static int add(int a,int b){return a+b;}  
+static double add(int a,int b){return a+b;}  
+}  
+class TestOverloading3{  
+public static void main(String[] args){  
+System.out.println(Adder.add(11,11));//ambiguity  to call which add method
+}}  
+
+-->We can overload the main method in the java program.but the jvm will look for static main method with string[] args parameter.
+
+Type Promotions::
+-----------------
+int-->float,long,double
+char-->int
+byte-->short,int
+short-->int
+long-->float,double
+float-->double
+
+Example of method overloading with type promotion::
+
+class OverloadingCalculation1{  
+  void sum(int a,long b){System.out.println(a+b);}  
+  void sum(int a,int b,int c){System.out.println(a+b+c);}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation1 obj=new OverloadingCalculation1();  
+  obj.sum(20,20);//now second int literal will be promoted to long  
+  obj.sum(20,20,20);  
+  
+  }  
+}  
+
+-->If there are matching type arguments in the method, type promotion is not performed..
+class OverloadingCalculation2{  
+  void sum(int a,int b){System.out.println("int arg method invoked");}  
+  void sum(long a,long b){System.out.println("long arg method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation2 obj=new OverloadingCalculation2();  
+  obj.sum(20,20);//now int arg sum() method gets invoked  
+  }  
+}  
+
+-->If there are no matching type arguments in the method, and each method promotes similar number of arguments, there will be ambiguity.
+class OverloadingCalculation3{  
+  void sum(int a,long b){System.out.println("a method invoked");}  
+  void sum(long a,int b){System.out.println("b method invoked");}  
+  
+  public static void main(String args[]){  
+  OverloadingCalculation3 obj=new OverloadingCalculation3();  
+  obj.sum(20,20);//now ambiguity  
+  }  
+}  
 
 Inheritance::
 -------------
