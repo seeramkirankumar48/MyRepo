@@ -467,14 +467,16 @@ so, in an inheritance relationship(IS-A), we can always reference the superclass
 
 Method overriding::
 ----------------------
+-->If subclass provides the specific implementation that is same as super class then it is called as Method Overriding.
 -->It is used to achieve runtime polymorphism.
 Rules::
 -------
-1.The method which is going to override must contain the same signature,same arguments and same name.
+1.The method which is going to override must contain the same signature,same arguments and same name as in the parent class.
 2.the overrided method should not be less accessible.
 3.must be in an IS-A relationship.
 
--->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.
+-->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.It will be proved in runtime polymorphism.
+-->So that,we cannot override the main method also, since it is also a static method.
 public class MyClass {
     public static void main(String args[]) {
        Child p=new Child();
@@ -497,6 +499,15 @@ class Child extends Parent{
 Rules for Overloading::
 -----------------------
 -->Overloading is such that with same name we can define multiple functions:it improves the readability of the program.
+there are 2 types in which method overloading is possible::
+a.by changing number of arguments
+b.by changing the data type
+
+void Add(int a,int b)
+void Add(int a,int b,int c)
+//two methods with the same Name "Add" but with different number or type of arguments is called method overloading.
+
+
 1.In java, method overloading is not possible by changing the return type of the method only because of ambiguity.
 
 -->Method overloading is not possible by changing the return type of the method.
@@ -509,7 +520,7 @@ public static void main(String[] args){
 System.out.println(Adder.add(11,11));//ambiguity  to call which add method
 }}  
 
--->We can overload the main method in the java program.but the jvm will look for static main method with string[] args parameter.
+-->We can overload the main method in the java program.but the jvm will look for static main method with string[] arguments as parameter.
 
 Type Promotions::
 -----------------
@@ -541,7 +552,7 @@ class OverloadingCalculation2{
   
   public static void main(String args[]){  
   OverloadingCalculation2 obj=new OverloadingCalculation2();  
-  obj.sum(20,20);//now int arg sum() method gets invoked  
+  obj.sum(20,20);//now int arg sum() method gets invoked  since they are matched with the the type of args.
   }  
 }  
 
@@ -552,7 +563,7 @@ class OverloadingCalculation3{
   
   public static void main(String args[]){  
   OverloadingCalculation3 obj=new OverloadingCalculation3();  
-  obj.sum(20,20);//now ambiguity  
+  obj.sum(20,20);//now ambiguity throws C.T error.
   }  
 }  
 
@@ -581,7 +592,208 @@ class C extends A,B{//suppose if it were
 }  
 
 
-225
+Covariant Return Type::
+----------------------
+The covariant return type specifies that the return type may vary in the same direction as the subclass.
+
+Before Java5, it was not possible to override any method by changing the return type. But now, since Java5, it is possible to override method by changing the return type if subclass overrides any method whose return type is Non-Primitive but it changes its return type to subclass type. Let's take a simple example:
+
+class A{  
+A get(){return this;}  
+}  
+  
+class B1 extends A{  
+B1 get(){return this;}  
+void message(){System.out.println("welcome to covariant return type");}  
+  
+public static void main(String args[]){  
+new B1().get().message();  
+}  
+}  
+
+As you can see in the above example, the return type of the get() method of A class is A but the return type of the get() method of B class is B. Both methods have different return type but it is method overriding. This is known as covariant return type.
+
+super keyword::
+---------------
+super keyword is used to refer the immediate parent class object.
+Whenever you create the instance of subclass, an instance of parent class is created implicitly which is referred by super reference variable.
+uses::
+------
+It is used to invoke parent class constructor,instance variables,parent class methods.
+basically, it is used to differentiate the parent class instance variables or methods if they have the same name with the super class types.say suppose,
+class Parent{
+int i=10;
+}
+class Child{
+int i=20;
+public void display(){
+System.out.println(i) //prints Child class i
+System.out.println(super.i) // prints super class i
+}
+}
+
+//if you want to call i it will print only child class i variable only if we want to call the parent class variables also then we have to go for super. similar is for methods.
+
+1.super is used to refer immediate parent class instance variable::
+class Animal{  
+String color="white";  
+}  
+class Dog extends Animal{  
+String color="black";  
+void printColor(){  
+System.out.println(color);//prints color of Dog class  
+System.out.println(super.color);//prints color of Animal class  
+}  
+}  
+class TestSuper1{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+d.printColor();  
+}}
+
+2.it is used to call the parent class method::
+class Animal{  
+void eat(){System.out.println("eating...");}  
+}  
+class Dog extends Animal{  
+void eat(){System.out.println("eating bread...");}  
+void bark(){System.out.println("barking...");}  
+void work(){  
+super.eat();  
+bark();  
+}  
+}  
+class TestSuper2{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+d.work();  
+}}  
+
+3.It is used to call the parent class constructor.
+class Animal{  
+Animal(){System.out.println("animal is created");}  
+}  
+class Dog extends Animal{  
+Dog(){  
+super();  
+System.out.println("dog is created");  
+}  
+}  
+class TestSuper3{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+}}  
+
+Note::super() is added in each class constructor automatically by compiler if there is no super() or this().
+      call to super must be first statement in constructor calling.
+
+Example:: For super is implicitly provided by the compiler itself
+
+class Animal{  
+Animal(){System.out.println("animal is created");}  
+}  
+class Dog extends Animal{  
+Dog(){  
+System.out.println("dog is created");  
+}  
+}  
+class TestSuper4{  
+public static void main(String args[]){  
+Dog d=new Dog();  
+}}  
+
+//prints ::
+animal is created
+dog is created
+
+Instance Initializer block::
+----------------------------
+The Instance initializer block is used to initialize the instance members.
+
+??what is the use of instance initializer block when we can initialize the members directly like::
+class Bike{  
+    int speed=100;  
+}  
+
+Suppose I have to perform some operations while assigning value to instance data member e.g. a for loop to fill a complex array or error handling etc.
+
+??What is invoked first, instance initializer block or constructor?
+
+class Bike8{  
+    int speed;  
+      
+    Bike8(){System.out.println("constructor is invoked");}  
+   
+    {System.out.println("instance initializer block invoked");}   //instance initializer block
+       
+    public static void main(String args[]){  
+    Bike8 b1=new Bike8();  
+    Bike8 b2=new Bike8();  
+    }      
+}  
+
+Output:instance initializer block invoked
+       constructor is invoked
+       instance initializer block invoked
+       constructor is invoked
+       
+In the above example, it seems that instance initializer block is firstly invoked but NO. Instance intializer block is invoked at the time of object creation. The java compiler copies the instance initializer block in the constructor after the first statement super(). So firstly, constructor is invoked.
+
+Rules::
+-------
+There are mainly three rules for the instance initializer block. They are as follows:
+1.The instance initializer block is created when instance of the class is created.
+2.The instance initializer block is invoked after the parent class constructor is invoked (i.e. after super() constructor call).
+3.The instance initializer block comes in the order in which they appear.
+
+Final Keyword::
+---------------
+the final keyword in java is used to restrict the user.
+the final can be applied to the ::
+1.Method
+2.class
+3.variable
+
+variable::
+once if it is initialized it cannot be changed.(not even in the constructor)
+final String color="RED";
+
+blank final variable::
+---------------------
+the final variables which are not initialized are called the blank final variables. they can be initialized only in the constructor and they cannot be modified anywhere.
+
+final String color;
+public Stu(){
+color="RED";
+}
+similarly there are static final blank variables they can be initialized only in the static block and cannot be modified anywhere.
+
+method::
+once, if a method is declared as final it cannot be overriden.
+
+class::
+once if a class is declared as final we cannot inherit it.
+
+Note::
+Q: Can we declare a constructor final?
+A: no,because constructor is never inherited.
+Q: Is final method inherited?
+A: Yes, final method is inherited but you cannot override it.
+ex:
+class Bike{  
+  final void run(){System.out.println("running...");}  
+}  
+class Honda2 extends Bike{  
+   public static void main(String args[]){  
+    new Honda2().run();  
+   }  
+}  
+
+
+
+
+
+//225
 
 ToCheck::
 ---------
