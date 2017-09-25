@@ -34,10 +34,14 @@ Java variables::
 
 Difference between local variables and instance variables::
 -----------------------------------------------------------
-Local variables::
+a.Local variables::
 -----------------
 These are declared inside the method.
-instance variables::
+Rule::
+------
+They should be initialized before usage.
+
+b.instance variables::
 --------------------
 These are declared inside the class.
 1.The instance variables can have the default values where as for the local variables they need to be initialized before the usage.
@@ -120,7 +124,7 @@ the "==" operator is used to check whether two variables values are same or not 
 
 -->The "Math" class is present in java.lang package. it also contains objects for Integer,Double,Float
 -->The ArrayList class present in the java.util package.
--->the println statement(System.out.println()) is used from java.lang package under system class.
+-->the println statement(System.out.println()) is used from java.lang package under system class where out is the static variable of type PrintStream.
 -->The java.lang package is pre-imported into the program by default so that's why when we write System.out.println or Integer we shouldn't import these packages as these are already imported from java.lang package.
 
 
