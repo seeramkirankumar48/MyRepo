@@ -791,6 +791,77 @@ class Honda2 extends Bike{
 
 Polymorphism::
 --------------
+Runtime polymorphism is decided at runtime.
+-->runtime polymorphism is not acheived with the data members
+package com.laboros.test;
+
+public class Sample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Animal a = new Dog();
+		a.eat(); //prints the overrided method i.e Dog eat method
+		System.out.println(a.i); //as data members are not overloaded prints the parent class i variable
+	}
+
+}
+
+class Animal{
+	int i=10;
+	public void eat(){
+		System.out.println("Animal eating");
+	}
+}
+
+class Dog extends Animal{
+	int i=20;
+	public void eat(){
+		System.out.println("Dog eating");
+	}
+}
+
+
+Instance of::
+-------------
+
+
+Abstract::
+----------
+A class that is declared with abstract keyword, is known as abstract class in java. It can have abstract and non-abstract methods (method with body).
+
+-->Abstraction is a process of hiding the implementation details and showing only functionality to the user
+
+Rules::
+-------
+1.Abstract class may contain the abstract methods and normal methods
+2.If a abstract class contains the abstract method then the class should be definetly mention the abstract keyword.
+3. If you are extending any abstract class that have abstract method, you must either provide the implementation of the method or make this class abstract.
+4.you cannot instantiate the abstract class.
+5.An abstract class can have data member, abstract method, method body, constructor and even main() method.
+
+program for 5th point::
+
+abstract class Bike{  
+  Bike(){System.out.println("bike is created");}  
+  abstract void run();  
+  void changeGear(){System.out.println("gear changed");}  
+}  
+ 
+class Honda extends Bike{  
+void run(){System.out.println("running safely..");}  
+ }  
+ class TestAbstraction2{  
+ public static void main(String args[]){  
+  Bike obj = new Honda();  
+  obj.run();  
+  obj.changeGear();  
+ }  
+}  
+  
+interfaces::
+------------
+An interface in java is a blueprint of a class. It has static constants and abstract methods.
+
 
 
 
@@ -823,3 +894,5 @@ public class MyClass {
 }
 3.methods with same signature but differentiated with static and normal methods.
 4.constructor chaining.
+5.what is default method?
+6.
