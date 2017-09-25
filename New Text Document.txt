@@ -4,7 +4,7 @@ Imp points::
 -->All the objects are stored in the Garbage-collectible heap. so if there are any unreferenced objects those are collected by the garbage collector.
 -->if there are 100 classes it is not that easy to deliver all the classes to the client(since misses can happen) so it is quite easy if we package them into a .jar file and specify the manifest file where the main method is.
 -->Arrays are always the objects whether they hold the primitive types or reference types.
--->length is just a parameter in the Array.
+-->length is just a parameter in the Array.It is a method in String class.
 -->In java,we can save a file other than the className of that particular java file but it should not be decorated with public identifier
 Ex1::
 Sample.java is the file name where it contains two classes A,B
