@@ -498,6 +498,23 @@ class Child extends Parent{
     }
 }
 
+Java access modifiers with method overriding::
+----------------------------------------------
+If you are overriding any method, overridden method (i.e. declared in subclass) must not be more restrictive. else it will throw C.T error.
+
+class A{  
+protected void msg(){System.out.println("Hello java");}  
+}  
+  
+public class Simple extends A{  
+void msg(){System.out.println("Hello java");}//C.T.Error  
+ public static void main(String args[]){  
+   Simple obj=new Simple();  
+   obj.msg();  
+   }  
+}  
+
+The default modifier is more restrictive than protected. That is why there is compile time error.
 
 
 Rules for Overloading::
@@ -1008,6 +1025,216 @@ Advantage of Java Package
 2) Java package provides access protection.
 
 3) Java package removes naming collision.
+e.g. java.util and java.sql packages contain Date class.
+
+Note: If you import a package, subpackages will not be imported.
+The standard of defining package is domain.company.package e.g. com.javatpoint.bean or org.sssit.dao.
+
+ex::
+package com.javatpoint.core;  
+class Simple{  
+  public static void main(String args[]){  
+   System.out.println("Hello subpackage");  
+  }  
+}  
+ToRun::
+-------
+To Compile: javac -d . Simple.java
+To Run: java com.javatpoint.core.Simple
+
+to store the class file in differnt directory::
+javac -d c:\classes\Simple.java
+to execute::
+set classpath=c:\classes;
+java mpack.Simple
+ (or) 
+java -classpath c:\classes mypack.Simple
+
+Package class
+
+The package class provides methods to get information about the specification and implementation of a package. It provides methods such as getName(), getImplementationTitle(), getImplementationVendor(), getImplementationVersion() etc.
+
+ex::
+class PackageInfo{  
+public static void main(String args[]){  
+   
+Package p=Package.getPackage("java.lang");  
+  
+System.out.println("package name: "+p.getName());  
+  
+System.out.println("Specification Title: "+p.getSpecificationTitle());  
+System.out.println("Specification Vendor: "+p.getSpecificationVendor());  
+System.out.println("Specification Version: "+p.getSpecificationVersion());  
+  
+System.out.println("Implementaion Title: "+p.getImplementationTitle());  
+System.out.println("Implementation Vendor: "+p.getImplementationVendor());  
+System.out.println("Implementation Version: "+p.getImplementationVersion());  
+System.out.println("Is sealed: "+p.isSealed());  
+  
+  
+ }  
+}  
+
+o/p::
+-----
+package name: java.lang
+       Specification Title: Java Plateform API Specification
+       Specification Vendor: Sun Microsystems, Inc.
+       Specification Version: 1.6
+       Implemenation Title: Java Runtime Environment
+       Implemenation Vendor: Sun Microsystems, Inc.
+       Implemenation Version: 1.6.0_30
+       IS sealed: false
+       
+      
+AccessModifiers::
+----------------
+The access modifiers in java specifies accessibility (scope) of a data member, method, constructor or class.
+There are 4 types of java access modifiers:
+There are many non-access modifiers such as static, abstract, synchronized, native, volatile, transient etc
+
+a.private
+The private access modifier is accessible only within class.
+ex1::
+class A{  
+private int data=40;  
+private void msg(){System.out.println("Hello java");}  
+}  
+  
+public class Simple{  
+ public static void main(String args[]){  
+   A obj=new A();  
+   System.out.println(obj.data);//Compile Time Error  
+   obj.msg();//Compile Time Error  
+   }  
+}  
+ex2::
+class A{  
+private A(){}//private constructor  
+void msg(){System.out.println("Hello java");}  
+}  
+public class Simple{  
+ public static void main(String args[]){  
+   A obj=new A();//Compile Time Error  
+ }  
+}  
+
+Note: A class cannot be private or protected except nested class.
+
+b.default
+If you don't use any modifier, it is treated as default bydefault. The default modifier is accessible only within package.
+
+//save by A.java  
+package pack;  
+class A{  
+  void msg(){System.out.println("Hello");}  
+}
+
+//save by B.java  
+package mypack;  
+import pack.*;  
+class B{  
+  public static void main(String args[]){  
+   A obj = new A();//Compile Time Error  
+   obj.msg();//Compile Time Error  
+  }  
+}
+In the above example, the scope of class A and its method msg() is default so it cannot be accessed from outside the package.
+
+c.protected
+The protected access modifier is accessible within package and outside the package but through inheritance only.
+The protected access modifier can be applied on the data member, method and constructor. It can't be applied on the class.
+
+//save by A.java  
+package pack;  
+public class A{  
+protected void msg(){System.out.println("Hello");}  
+}  
+
+//save by B.java  
+package mypack;  
+import pack.*;  
+  
+class B extends A{   //through inheritance it is accessible
+  public static void main(String args[]){  
+   B obj = new B();  
+   obj.msg();  
+  }  
+}  
+
+o/p::Hello
+
+d.public
+it 's accessible anywhere.
+
+Array::
+-------
+Syntax to Declare an Array in java
+dataType[] arr; (or)  
+dataType []arr; (or)  
+dataType arr[]; 
+
+length is the property of array  
+
+int a[]=new int[5];//declaration and instantiation  
+a[0]=10;//initialization  
+a[1]=20;  
+a[2]=70;  
+a[3]=40;  
+a[4]=50;  
+
+int a[]={33,3,4,5};//declaration, instantiation and initialization 
+
+Passing array as a parameter to the method::
+
+class Testarray2{  
+static void min(int arr[]){  
+int min=arr[0];  
+for(int i=1;i<arr.length;i++)  
+ if(min>arr[i])  
+  min=arr[i];  
+  
+System.out.println(min);  
+}  
+  
+public static void main(String args[]){  
+  
+int a[]={33,3,4,5};  
+min(a);//passing array to method  
+  
+}}  
+
+Multidimensional Array:
+-----------------------
+dataType[][] arrayRefVar; (or)  
+dataType [][]arrayRefVar; (or)  
+dataType arrayRefVar[][]; (or)  
+dataType []arrayRefVar[];   
+
+int[][] arr=new int[3][3];//3 row and 3 column
+
+//declaring and initializing 2D array  
+int arr[][]={{1,2,3},{2,4,5},{4,4,5}};  
+
+for(int i=0;i<3;i++){  
+ for(int j=0;j<3;j++){  
+   System.out.print(arr[i][j]+" ");  
+ }  
+ System.out.println();  
+}  
+
+Copying a java array
+
+We can copy an array to another by the arraycopy method of System class.
+
+Syntax of arraycopy method
+
+public static void arraycopy(  
+Object src, int srcPos,Object dest, int destPos, int length  
+)  
+
+Object cloning::
+----------------
 
 
 
@@ -1041,4 +1268,5 @@ public class MyClass {
 3.methods with same signature but differentiated with static and normal methods.
 4.constructor chaining.
 5.what is default method?
-6.
+6.why the protected access modifier is not applied to the class?
+
