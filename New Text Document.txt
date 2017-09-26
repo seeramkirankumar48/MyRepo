@@ -865,7 +865,149 @@ void run(){System.out.println("running safely..");}
 interfaces::
 ------------
 An interface in java is a blueprint of a class. It has static constants and abstract methods.
+The interface in java is a mechanism to achieve abstraction. There can be only abstract methods in the java interface not method body. It is used to achieve abstraction and multiple inheritance in Java.
+Since Java 8, interface can have default and static methods 
 
+IMP::The java compiler adds public and abstract keywords before the interface method. More, it adds public, static and final keywords before data members.
+In other words, Interface fields are public, static and final by default, and methods are public and abstract.
+
+A class extends another class
+A class implements interface
+A interface extends another interface.
+
+ex::
+interface Bank{  
+float rateOfInterest();  
+}  
+class SBI implements Bank{  
+public float rateOfInterest(){return 9.15f;}  
+}  
+class PNB implements Bank{  
+public float rateOfInterest(){return 9.7f;}  
+}  
+class TestInterface2{  
+public static void main(String[] args){  
+Bank b=new SBI();  
+System.out.println("ROI: "+b.rateOfInterest());  
+}}  
+
+//ROI: 9.15
+
+multiple inheritance::
+----------------------
+
+interface Printable{  
+void print();  
+}  
+interface Showable{  
+void show();  
+}  
+class A7 implements Printable,Showable{  
+public void print(){System.out.println("Hello");}  
+public void show(){System.out.println("Welcome");}  
+  
+public static void main(String args[]){  
+A7 obj = new A7();  
+obj.print();  
+obj.show();  
+ }  
+}  
+
+Hello
+Welcome
+
+As implementation is provided by the implementation class hence there will be no ambiguity hence, multiple inheritance is possible with interfaces.
+
+Since Java 8, we can have method body in interface. But we need to make it default method. 
+the reason why the default method is provided is because, consider an interface in which it contains the method declarations for 5 methods and that particular interface is extended by 10 classes.say if tomorrow, if you need to add the method declaration for one more method in the interface you need to extend that functionality to all other subclasses which are inheriting from that particular interface so in order to provide the backward compatibility the default methods are provided.
+
+interface Drawable{  
+void draw();  
+default void msg(){System.out.println("default method");}  
+}  
+class Rectangle implements Drawable{  
+public void draw(){System.out.println("drawing rectangle");}  
+}  
+class TestInterfaceDefault{  
+public static void main(String args[]){  
+Drawable d=new Rectangle();  
+d.draw();  
+d.msg();  
+}}  
+
+what if in multiple inheritance if 2 interfaces provide the same default method so you have to override that particular method in the implementation class.
+
+interface IA{
+    default public void show(){
+        System.out.println("show method IA");
+    }
+}
+interface IB{
+    default public void show(){
+        System.out.println("show method IB");
+    }
+}
+class A implements IA,IB{
+    public void show(){
+        IA.super.show();
+    }
+}
+public class MyClass {
+    public static void main(String args[]) {
+      A a=new A();
+       a.show();
+    }
+}
+
+so what is the difference b/w abstract and interfaces if it is also providing the implemenations.
+1.Abstract class can have a constructor.
+2.Abstract classes are more structured and can hold a state.
+
+Since Java 8, we can have static method in interface. Let's see an example:
+
+interface Drawable{  
+void draw();  
+static int cube(int x){return x*x*x;}  
+}  
+class Rectangle implements Drawable{  
+public void draw(){System.out.println("drawing rectangle");}  
+}  
+  
+class TestInterfaceStatic{  
+public static void main(String args[]){  
+Drawable d=new Rectangle();  
+d.draw();  
+System.out.println(Drawable.cube(3));  
+}}  
+
+Tagged Interface::
+------------------
+An interface that have no member is known as marker or tagged interface. For example: Serializable, Cloneable, Remote etc. They are used to provide some essential information to the JVM so that JVM may perform some useful operation.
+
+public interface Serializable{  
+}  
+
+Nested Interface::
+------------------
+interface within an another interface.
+
+interface printable{  
+ void print();  
+ interface MessagePrintable{  
+   void msg();  
+ }  
+}  
+
+Package::
+---------
+A java package is a group of similar types of classes, interfaces and sub-packages.
+Advantage of Java Package
+
+1) Java package is used to categorize the classes and interfaces so that they can be easily maintained.
+
+2) Java package provides access protection.
+
+3) Java package removes naming collision.
 
 
 
