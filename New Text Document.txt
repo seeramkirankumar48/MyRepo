@@ -1453,7 +1453,363 @@ String::
 
 
 
+Exception Handling::
+--------------------
 
+
+  +-----------+
+		   | Throwable |
+                   +-----------+
+                    /         \
+		   /           \
+          +-------+          +-----------+
+          | Error |          | Exception |
+          +-------+          +-----------+
+	   /  |  \           / |        \
+         \________/	  \______/    	 \
+			                +------------------+
+	unchecked	 checked	| RuntimeException |
+					+------------------+
+					  /   |    |      \
+					 \_________________/
+					   
+					   unchecked
+Mainly there are 2 types of exceptions are there::
+1. checked -- which are caught at compile time.
+The classes that extend Throwable class except RuntimeException and Error are known as checked exceptions e.g.IOException, SQLException etc. Checked exceptions are checked at compile-time.
+2. un checked. -- which are caught at run time.
+The classes that extend RuntimeException are known as unchecked exceptions e.g. ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException etc. Unchecked exceptions are not checked at compile-time rather they are checked at runtime.
+
+-->Error
+Error is irrecoverable e.g. OutOfMemoryError, VirtualMachineError, AssertionError etc.
+
+try block::
+Java try block is used to enclose the code that might throw an exception. It must be used within the method.
+Java try block must be followed by either catch or finally block.
+
+Syntax of java try-catch
+
+try{  
+//code that may throw exception  
+}catch(Exception_class_Name ref){}  
+Syntax of try-finally block
+
+try{  
+//code that may throw exception  
+}finally{}  
+
+Java catch block::
+Java catch block is used to handle the Exception. It must be used after the try block only.
+You can use multiple catch block with a single try.
+
+Problem without exception handling
+
+Let's try to understand the problem if we don't use try-catch block.
+
+public class Testtrycatch1{  
+  public static void main(String args[]){  
+      int data=50/0;//may throw exception  
+      System.out.println("rest of the code...");  
+}  
+}  
+
+o/p::Exception in thread main java.lang.ArithmeticException:/ by zero
+
+As displayed in the above example, rest of the code is not executed (in such case, rest of the code... statement is not printed).
+
+There can be 100 lines of code after exception. So all the code after exception will not be executed.
+
+Solution by exception handling
+
+Let's see the solution of above problem by java try-catch block.
+
+public class Testtrycatch2{  
+  public static void main(String args[]){  
+   try{  
+      int data=50/0;  
+   }catch(ArithmeticException e){System.out.println(e);}  
+   System.out.println("rest of the code...");  
+}  
+}  
+
+Output:
+
+Exception in thread main java.lang.ArithmeticException:/ by zero
+rest of the code...
+Now, as displayed in the above example, rest of the code is executed i.e. rest of the code... statement is printed.
+
+Internal working of java try-catch block::
+
+The JVM firstly checks whether the exception is handled or not. If exception is not handled, JVM provides a default exception handler that performs the following tasks:
+
+Prints out exception description.
+Prints the stack trace (Hierarchy of methods where the exception occurred).
+Causes the program to terminate.
+But if exception is handled by the application programmer, normal flow of the application is maintained i.e. rest of the code is executed.
+
+Java catch multiple exceptions::
+
+If you have to perform different tasks at the occurrence of different Exceptions, use java multi catch block.
+
+Let's see a simple example of java multi-catch block.
+
+public class TestMultipleCatchBlock{  
+  public static void main(String args[]){  
+   try{  
+    int a[]=new int[5];  
+    a[5]=30/0;  
+   }  
+   catch(ArithmeticException e){System.out.println("task1 is completed");}  
+   catch(ArrayIndexOutOfBoundsException e){System.out.println("task 2 completed");}  
+   catch(Exception e){System.out.println("common task completed");}  
+  
+   System.out.println("rest of the code...");  
+ }  
+}  
+
+Output:task1 completed
+       rest of the code...
+       
+Rule: At a time only one Exception is occured and at a time only one catch block is executed.
+Rule: All catch blocks must be ordered from most specific to most general i.e. catch for ArithmeticException must come before catch for Exception.
+
+class TestMultipleCatchBlock1{  
+  public static void main(String args[]){  
+   try{  
+    int a[]=new int[5];  
+    a[5]=30/0;  
+   }  
+   catch(Exception e){System.out.println("common task completed");}  
+   catch(ArithmeticException e){System.out.println("task1 is completed");}  
+   catch(ArrayIndexOutOfBoundsException e){System.out.println("task 2 completed");}  
+   System.out.println("rest of the code...");  
+ }  
+}  
+
+Output:
+Compile-time error
+
+Java Nested try block::
+The try block within a try block is known as nested try block in java.
+
+Why use nested try block:
+Sometimes a situation may arise where a part of a block may cause one error and the entire block itself may cause another error. In such cases, exception handlers have to be nested.
+
+class Excep6{  
+ public static void main(String args[]){  
+  try{  
+    try{  
+     System.out.println("going to divide");  
+     int b =39/0;  
+    }catch(ArithmeticException e){System.out.println(e);}  
+   
+    try{  
+    int a[]=new int[5];  
+    a[5]=4;  
+    }catch(ArrayIndexOutOfBoundsException e){System.out.println(e);}  
+     
+    System.out.println("other statement);  
+  }catch(Exception e){System.out.println("handeled");}  
+  
+  System.out.println("normal flow..");  
+ }  
+}  
+
+o/p::going to divide
+java.lang.ArithmeticException: / by zero
+java.lang.ArrayIndexOutOfBoundsException: 5
+other statement
+normal flow..
+
+finally::
+Java finally block is a block that is used to execute important code such as closing connection, stream etc.
+
+Java finally block is always executed whether exception is handled or not.
+
+Java finally block follows try or catch block.
+
+Note: If you don't handle exception, before terminating the program, JVM executes finally block(if any).
+
+Why use java finally::
+Finally block in java can be used to put "cleanup" code such as closing a file, closing connection etc.
+
+Case 1
+
+Let's see the java finally example where exception doesn't occur.
+
+class TestFinallyBlock{  
+  public static void main(String args[]){  
+  try{  
+   int data=25/5;  
+   System.out.println(data);  
+  }  
+  catch(NullPointerException e){System.out.println(e);}  
+  finally{System.out.println("finally block is always executed");}  
+  System.out.println("rest of the code...");  
+  }  
+}  
+
+Output:5
+       finally block is always executed
+       rest of the code...
+Case 2
+
+Let's see the java finally example where exception occurs and not handled.
+
+class TestFinallyBlock1{  
+  public static void main(String args[]){  
+  try{  
+   int data=25/0;  
+   System.out.println(data);  
+  }  
+  catch(NullPointerException e){System.out.println(e);}  
+  finally{System.out.println("finally block is always executed");}  
+  System.out.println("rest of the code...");  
+  }  
+}  
+
+Output:finally block is always executed
+       Exception in thread main java.lang.ArithmeticException:/ by zero
+Case 3
+
+Let's see the java finally example where exception occurs and handled.
+
+public class TestFinallyBlock2{  
+  public static void main(String args[]){  
+  try{  
+   int data=25/0;  
+   System.out.println(data);  
+  }  
+  catch(ArithmeticException e){System.out.println(e);}  
+  finally{System.out.println("finally block is always executed");}  
+  System.out.println("rest of the code...");  
+  }  
+}  
+
+Output:Exception in thread main java.lang.ArithmeticException:/ by zero
+       finally block is always executed
+       rest of the code...
+
+Rule: For each try block there can be zero or more catch blocks, but only one finally block.
+
+Note: The finally block will not be executed if program exits(either by calling System.exit() or by causing a fatal error that causes the process to abort).
+
+throw::
+The Java throw keyword is used to explicitly throw an exception.
+
+We can throw either checked or uncheked exception in java by throw keyword. The throw keyword is mainly used to throw custom exception. We will see custom exceptions later.
+
+The syntax of java throw keyword is given below.
+
+throw exception;  
+Let's see the example of throw IOException.
+
+throw new IOException("sorry device error);  
+
+public class TestThrow1{  
+   static void validate(int age){  
+     if(age<18)  
+      throw new ArithmeticException("not valid");  
+     else  
+      System.out.println("welcome to vote");  
+   }  
+   public static void main(String args[]){  
+      validate(13);  
+      System.out.println("rest of the code...");  
+  }  
+}  
+
+Output:
+Exception in thread main java.lang.ArithmeticException:not valid
+
+if validate(19) then the output is as follows::
+//welcome to vote
+rest of the code...
+
+Exception Propagation::
+
+An exception is first thrown from the top of the stack and if it is not caught, it drops down the call stack to the previous method,If not caught there, the exception again drops down to the previous method, and so on until they are caught or until they reach the very bottom of the call stack.This is called exception propagation.
+Rule: By default Unchecked Exceptions are forwarded in calling chain (propagated).
+
+class TestExceptionPropagation1{  
+  void m(){  
+    int data=50/0;  
+  }  
+  void n(){  
+    m();  
+  }  
+  void p(){  
+   try{  
+    n();  
+   }catch(Exception e){System.out.println("exception handled");}  
+  }  
+  public static void main(String args[]){  
+   TestExceptionPropagation1 obj=new TestExceptionPropagation1();  
+   obj.p();  
+   System.out.println("normal flow...");  
+  }  
+}  
+
+Output:exception handled
+       normal flow...
+       
+In the above example exception occurs in m() method where it is not handled,so it is propagated to previous n() method where it is not handled, again it is propagated to p() method where exception is handled.
+
+Exception can be handled in any method in call stack either in main() method,p() method,n() method or m() method
+
+Rule: By default, Checked Exceptions are not forwarded in calling chain (propagated).
+
+Program which describes that checked exceptions are not propagated
+class TestExceptionPropagation2{  
+  void m(){  
+    throw new java.io.IOException("device error");//checked exception  
+  }  
+  void n(){  
+    m();  
+  }  
+  void p(){  
+   try{  
+    n();  
+   }catch(Exception e){System.out.println("exception handeled");}  
+  }  
+  public static void main(String args[]){  
+   TestExceptionPropagation2 obj=new TestExceptionPropagation2();  
+   obj.p();  
+   System.out.println("normal flow");  
+  }  
+}  
+
+Output:Compile Time Error
+
+public class TestExceptionPropagation1{  
+  void m(){  
+      try
+      {
+    int data=50/0;  
+      }
+      catch(Exception ex){
+          System.out.println("exception in m");
+      }
+  }  
+  void n(){  
+    m();  
+  }  
+  void p(){  
+   try{  
+    n();  
+   }catch(Exception e){System.out.println("exception handled");}  
+  }  
+  public static void main(String args[]){  
+   TestExceptionPropagation1 obj=new TestExceptionPropagation1();  
+   obj.p();  
+   System.out.println("normal flow...");  
+  }  
+}  
+
+exception in m
+normal flow...
+
+throws::
 
 
 
@@ -1493,4 +1849,5 @@ public class MyClass {
 4.constructor chaining.
 5.what is default method?
 6.why the protected access modifier is not applied to the class?
+7.what is the difference between exception and error.?
 
