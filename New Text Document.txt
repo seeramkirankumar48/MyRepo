@@ -207,6 +207,48 @@ we can copy the values of one object to the another object by any of the below m
  s2.id=s1.id;
  s2.name=s2.name;
 3.By clone() method of Object class
+The object cloning is a way to create exact copy of an object. For this purpose, clone() method of Object class is used to clone an object.
+
+The java.lang.Cloneable interface must be implemented by the class whose object clone we want to create. If we don't implement Cloneable interface, clone() method generates CloneNotSupportedException.
+
+The clone() method is defined in the Object class. Syntax of the clone() method is as follows:
+
+protected Object clone() throws CloneNotSupportedException  
+
+Why use clone() method ?
+
+The clone() method saves the extra processing task for creating the exact copy of an object. If we perform it by using the new keyword, it will take a lot of processing to be performed that is why we use object cloning.
+
+ex::
+
+class Student18 implements Cloneable{  //should implement Cloneable interface in java.lang package
+int rollno;  
+String name;  
+  
+Student18(int rollno,String name){  
+this.rollno=rollno;  
+this.name=name;  
+}  
+  
+public Object clone()throws CloneNotSupportedException{  
+return super.clone();  
+}  
+  
+public static void main(String args[]){  
+try{  
+Student18 s1=new Student18(101,"amit");  
+  
+Student18 s2=(Student18)s1.clone();  
+  
+System.out.println(s1.rollno+" "+s1.name);  
+System.out.println(s2.rollno+" "+s2.name);  
+  
+}catch(CloneNotSupportedException c){}  
+  
+}  
+}  
+
+//Now both s1 and s2 contains the same values
 
 -->Constructors returns the value::yes, that is current class instance (You cannot use return type yet it returns a value).
 
@@ -478,6 +520,7 @@ Rules::
 1.The method which is going to override must contain the same signature,same arguments and same name as in the parent class.
 2.the overrided method should not be less accessible.
 3.must be in an IS-A relationship.
+4.Return type must be same or covariant in method overriding.
 
 -->we cannot override static method because it is bound to the class where as the normal methods are bound to the instance level.so that means we cannot override the main method.It will be proved in runtime polymorphism.
 -->So that,we cannot override the main method also, since it is also a static method.
@@ -1233,8 +1276,189 @@ public static void arraycopy(
 Object src, int srcPos,Object dest, int destPos, int length  
 )  
 
-Object cloning::
-----------------
+Wrapper Classes::
+-----------------
+The process of converting primitive types to object is called boxing.
+the process of converting object type to primitive types is called unboxing.
+
+boolean	Boolean
+char	Character
+byte	Byte
+short	Short
+int	Integer
+long	Long
+float	Float
+double	Double
+
+Wrapper class Example: Primitive to Wrapper
+
+public class WrapperExample1{  
+public static void main(String args[]){  
+//Converting int into Integer  
+int a=20;  
+Integer i=Integer.valueOf(a);//converting int into Integer  
+Integer j=a;//autoboxing, now compiler will write Integer.valueOf(a) internally  
+  
+System.out.println(a+" "+i+" "+j);  
+}}  
+Output:
+
+20 20 20
+
+Wrapper class Example: Wrapper to Primitive
+
+public class WrapperExample2{    
+public static void main(String args[]){    
+//Converting Integer to int    
+Integer a=new Integer(3);    
+int i=a.intValue();//converting Integer to int  
+int j=a;//unboxing, now compiler will write a.intValue() internally    
+    
+System.out.println(a+" "+i+" "+j);    
+}}    
+Output:
+
+3 3 3
+
+Call by value and call by reference::
+-------------------------------------
+In java everything is call by value only.
+
+Everyone says "no" as Java does not support pointers. No one actually see the address of the object in Java. No one can dream of call by reference without pointers with their experience of C/C++.
+
+Of course, they are very correct.
+
+In Java the method parameters can be primitive data types or object references. Both are passed as value only but small tricky explanation is here for object references. I repeat, when primitive data types are passed as method parameters, they are passed by value (a copy of the value) but incase of object references, the reference is copied (of course, here also a copy only) and passed to the called method. That is, object reference is passed as a value. So, original reference and the parameter copy both will refer the same Java object. As both refer the same object, if the calling method changes the value of its reference (passed from calling method), the original object value itself changes. Note that object itself is not passed, but it’s references is passed.
+
+
+ 
+Object reference is a handle to a Java object. Do not compare this reference term with the used in C/C++. In C/C++, the reference directly points to the memory address of a variable and can be used for pointer manipulations.
+
+IMP::Finally to say, in Java, everyone is passed by value. But with objecct, the value of the reference is passed.
+
+Let us see two programs on call by value and call by reference.
+
+Case 1: Call-by-value or Pass-by-value
+
+In the following program, a data type int is passed as parameter to a method call.
+
+
+public class CallByValue
+{
+  public void display(int y)
+  {
+    y = 20;
+  }
+  public static void main(String args[])
+  {
+    CallByValue cbv = new CallByValue();
+    int x = 10;
+    cbv.display(x);
+    System.out.println(x);                        // prints 10 and not 20    
+  }
+}  
+
+
+The variable x value 10 is passed to parameter of y of display() method. As copy of x is passed, changing y does not change x value in main() method.
+
+Case 2: Call by reference Java or Pass-by-reference
+
+Here, for display() method the reference of StringBuffer object is passed.
+
+
+public class CallByReference
+{
+  public void display(StringBuffer sb2)
+  {
+    sb2.append("World");
+    System.out.println(sb2);                       // prints HelloWorld
+  }
+  public static void main(String args[])
+  {
+    CallByReference cbr = new CallByReference();
+    StringBuffer sb1 = new StringBuffer("Hello");
+    cbr.display(sb1);
+    System.out.println(sb1);                       // prints HelloWorld
+  }
+}  
+The value of object reference sb1 is passed to sb2. sb1 literal value "Hello" is passed to sb2. Now sb1 reference and sb2 reference refer the same object. Changing sb2 affects sb1 also. Both sb1 and sb2 prints "HelloWorld".
+
+Strictfp::
+----------
+Java strictfp keyword ensures that you will get the same result on every platform if you perform operations in the floating-point variable. The precision may differ from platform to platform that is why java programming language have provided the strictfp keyword, so that you get same result on every platform. So, now you have better control over the floating-point arithmetic.
+
+Legal code for strictfp keyword::
+
+The strictfp keyword can be applied on methods, classes and interfaces.
+
+strictfp class A{}//strictfp applied on class  
+
+strictfp interface M{}//strictfp applied on interface  
+
+class A{  
+strictfp void m(){}//strictfp applied on method  
+}  
+
+Illegal code for strictfp keyword::
+
+The strictfp keyword cannot be applied on abstract methods, variables or constructors.
+since, all the interface methods are abstract by default so it is not possible to apply strictfp to the interface methods also.
+class B{  
+strictfp abstract void m();//Illegal combination of modifiers  
+}  
+class B{  
+strictfp int data=10;//modifier strictfp not allowed here  
+}  
+class B{  
+strictfp B(){}//modifier strictfp not allowed here  
+}  
+
+Java doc tool::
+---------------
+InOrder to create the documentation for the java classes it is used.
+
+First a class should be declared with the documentation comments.
+
+package com.abc;  
+/** This class is a user-defined class that contains one methods cube.*/  
+public class M{  
+  
+/** The cube method prints cube of the given number */  
+public static void  cube(int n){System.out.println(n*n*n);}  
+}  
+
+To create the document API, you need to use the javadoc tool followed by java file name. There is no need to compile the javafile.
+
+On the command prompt, you need to write:
+
+javadoc M.java
+to generate the document api. Now, there will be created a lot of html files. Open the index.html file to get the information about the classes.
+
+Command Line Arguments::
+------------------------
+The java command line arguments are used to pass the values to the program at runtime.
+
+class CommandLineExample{  
+public static void main(String args[]){  
+System.out.println("Your first argument is: "+args[0]);  
+}  
+}  
+compile by > javac CommandLineExample.java  
+run by > java CommandLineExample dfdfd
+
+//Your first argument is: dfdfd
+
+String::
+--------
+
+
+
+
+
+
+
+
+
 
 
 
