@@ -1676,7 +1676,9 @@ Note: After a string literal, all the + will be treated as string concatenation 
 
 2) String Concatenation by concat() method
 
-The String concat() method concatenates the specified string to the end of current string. Syntax:
+The String concat() method concatenates the specified string to the end of current string and returns the String object. 
+
+Syntax:
 
 public String concat(String another)  
 Let's see the example of String concat() method.
