@@ -1656,9 +1656,11 @@ class TestStringConcatenation1{
 }  
 
 Output:Sachin Tendulkar
-The Java compiler transforms above code to this:
 
-String s=(new StringBuilder()).append("Sachin").append(" Tendulkar).toString();  
+IMP::
+----
+The Java compiler transforms above code to this:
+String s=(new StringBuilder()).append("Sachin").append(" Tendulkar).toString();  //So when using the + function it will append the Strings and the result is an of object type of String Builder.
 
 In java, String concatenation is implemented through the StringBuilder (or StringBuffer) class and its append method. String concatenation operator produces a new string by appending the second operand onto the end of the first operand. The string concatenation operator can concat not only string but primitive values also. For Example:
 
@@ -1791,6 +1793,9 @@ When the intern method is invoked, if the pool already contains a string equal t
 String s=new String("Sachin");  
 String s2=s.intern();  
 System.out.println(s2);//Sachin  
+
+IMP::All literal strings and string-valued constant expressions are interned.
+
 
 Java String valueOf() method::
 
