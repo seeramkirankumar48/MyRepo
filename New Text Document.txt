@@ -3078,6 +3078,16 @@ public class TestExceptionPropagation1{
     System.out.println(xy==ab); //it should return true but it returns false.
   }  
 }  
-20.java throw keyword?
-
+10.java throw keyword?
+11.examine the code
+public class TestExceptionPropagation1{  
+ 
+  public static void main(String args[]){  
+    String str="hello";
+    final String str1= "h";
+    final String str2="ell";
+    String str3=str1+str2+"o";
+    System.out.println(str==str3); //should return false
+  }  
+}  
 
