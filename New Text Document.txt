@@ -3,6 +3,7 @@ Imp points::
 -->In java, a boolean data type value cannot hold the integer value it holds only true or false.
 -->All the objects are stored in the Garbage-collectible heap. so if there are any unreferenced objects those are collected by the garbage collector.
 -->if there are 100 classes it is not that easy to deliver all the classes to the client(since misses can happen) so it is quite easy if we package them into a .jar file and specify the manifest file where the main method is.
+To Build the entire classes in the package the sbt(simple build tool) can be used.
 -->Arrays are always the objects whether they hold the primitive types or reference types.
 -->length is just a parameter in the Array.It is a method in String class.
 -->In java,we can save a file other than the className of that particular java file but it should not be decorated with public identifier
@@ -40,6 +41,9 @@ These are declared inside the method.
 Rule::
 ------
 They should be initialized before usage.
+Reason::
+--------
+The reason being the local variables should be initialized before the usage is the user can call any method as there is no predefined criteria to call the methods. but if we specifically calling a method we intend to call that method only, so it is necessary to initialize.
 
 b.instance variables::
 --------------------
@@ -260,6 +264,7 @@ the static can be applied to the ::
 1.variable (also known as class variable)::
 -->The static variable can be used to refer the common property of all objects (that is not unique for each object) e.g. company name of employees,college name of students etc.
 -->The static variable gets memory only once in class area at the time of class loading.
+-->The static variables can't be created in the normal methods as well as static methods because the static variables are bound to the class level variables.
 
 ??how it will save the memory::
 suppose say a class:
