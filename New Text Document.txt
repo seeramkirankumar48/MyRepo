@@ -94,6 +94,8 @@ String[] arr={"kiran","kumar","seeram"};
 or else in seperate lines using::
 String[] arr;
 arr=new String[]{"kiran","kumar","seeram"};
+
+//arr={"kiran","kumar","seeram"}; //throws C.T error illegal start of expression.
 -------------------
 Getters & setters::
 -------------------
@@ -135,7 +137,7 @@ the "==" operator is used to check whether two variables values are same or not 
 Object::
 --------
 Each and every class implicitly extends the Object functionality::
-it has 4 methods::
+The main methods used are::
 1.boolean equals()
 2.Class getClass() //it is a final method hence cannot be overrided.
 3.int hashCode()
@@ -265,6 +267,7 @@ the static can be applied to the ::
 -->The static variable can be used to refer the common property of all objects (that is not unique for each object) e.g. company name of employees,college name of students etc.
 -->The static variable gets memory only once in class area at the time of class loading.
 -->The static variables can't be created in the normal methods as well as static methods because the static variables are bound to the class level variables.
+-->The static variables contains the default values like instance variables.
 
 ??how it will save the memory::
 suppose say a class:
@@ -3095,4 +3098,32 @@ public class TestExceptionPropagation1{
     System.out.println(str==str3); //should return false
   }  
 }  
+12.examine the code::
+import java.util.Scanner;
+
+public class RFibonocci{
+    static int n1=0,n2=1,count;
+    public RFibonocci(){
+        System.out.println("Enter the fibo series:");
+        Scanner scr=new Scanner(System.in);
+        count=scr.nextInt();
+        System.out.println("Series is:");
+        System.out.println(n1+"\n"+n2);
+        fibo(count-2);
+    }
+    public static void fibo(int count){
+        while(count>0){
+            int n3=n1+n2;
+            System.out.println(n3);
+            n1=n2;
+            n2=n3;
+            count-=1;
+            fibo(count);
+        }
+    }
+    public static void main(String...args){
+        new RFibonocci();
+    }
+    
+}
 
