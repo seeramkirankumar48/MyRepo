@@ -95,7 +95,12 @@ or else in seperate lines using::
 String[] arr;
 arr=new String[]{"kiran","kumar","seeram"};
 
-//arr={"kiran","kumar","seeram"}; //throws C.T error illegal start of expression.
+//arr={"kiran","kumar","seeram"}; //throws C.T error illegal 
+
+int[] arr=new int[2]{1,2};//C.T error
+you cannot define the size of the array while initializing
+
+start of expression.
 -------------------
 Getters & setters::
 -------------------
@@ -142,6 +147,7 @@ The main methods used are::
 2.Class getClass() //it is a final method hence cannot be overrided.
 3.int hashCode()
 4.String toString()
+5.Object clone() //protected method so it is present in the inheriting classes only.
 
 a.different ways to create the object::
 -------------------------------------
@@ -198,6 +204,10 @@ Student s1=new Student();
 s1.display();
 }
 }
+
+
+//why default values are provided only to the instance,static variables but not for local variables::
+reason being when you create an object you may or may not know which method you are calling on that particular object,so if in that particular method you are using the instance variables there needs to be some initialization before usage so, the compiler provides the default values but when you create the local variables, you already know that the particular method is the only one you are calling so it is needed to be initialized before usage and hence compiler doesn't provide the default values.
 
 we can copy the values of one object to the another object by any of the below methods::
 1.By constructor
@@ -303,12 +313,47 @@ restrictions for static method::
 -->The static method can not use non static data member or call non-static method directly.
 -->this and super cannot be used in static context.
 
+Q:why this and super keywords are not used in static context?
+A:this is used to represent the current class and super is used to represent the parent class Instance.where as static is used to refer the class level.
+
 3.block::
+There are two types of blocks::
+1.instance block
+2.static block
+
+static block::
 -->Is used to initialize the static data member.
 -->It is executed before main method at the time of classloading.
-nested class
 
-4.Nestedclass
+instance block::
+-->It is used to run for each instance creation.
+
+ex::
+
+public class RFibonocci {
+	public static void main(String... args) {
+		Student s1=new Student();
+		
+	}
+}
+
+class Student{
+	String fname;
+	String lname;
+	static {
+		System.out.println("static block");
+	}
+	public void fun(){
+		System.out.println("fun method");
+	}
+	{
+		System.out.println("Instance method called");
+	}
+}
+
+
+
+nested class::
 
 
 this keyword::
@@ -1336,7 +1381,7 @@ Everyone says "no" as Java does not support pointers. No one actually see the ad
 
 Of course, they are very correct.
 
-In Java the method parameters can be primitive data types or object references. Both are passed as value only but small tricky explanation is here for object references. I repeat, when primitive data types are passed as method parameters, they are passed by value (a copy of the value) but incase of object references, the reference is copied (of course, here also a copy only) and passed to the called method. That is, object reference is passed as a value. So, original reference and the parameter copy both will refer the same Java object. As both refer the same object, if the calling method changes the value of its reference (passed from calling method), the original object value itself changes. Note that object itself is not passed, but itâ€™s references is passed.
+In Java the method parameters can be primitive data types or object references. Both are passed as value only but small tricky explanation is here for object references. I repeat, when primitive data types are passed as method parameters, they are passed by value (a copy of the value) but incase of object references, the reference is copied (of course, here also a copy only) and passed to the called method. That is, object reference is passed as a value. So, original reference and the parameter copy both will refer the same Java object. As both refer the same object, if the calling method changes the value of its reference (passed from calling method), the original object value itself changes. Note that object itself is not passed, but it’s references is passed.
 
 
  
