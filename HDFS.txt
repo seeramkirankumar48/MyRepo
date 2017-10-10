@@ -120,6 +120,15 @@ implinks::
 5.https://martin.atlassian.net/wiki/pages/viewpage.action?pageId=26148906
 6.https://hadoopabcd.wordpress.com/
 
+datasets::
+-----------
+1.code and examples::
+http://hadoopbook.com/
+2.case studies::
+https://github.com/oreillymedia/hadoop_the_definitive_guide_4e/blob/master/Hadoop_TDG_3E--case_studies.pdf
+3.complete resources links::
+https://github.com/tomwhite/hadoop-book/
+
 
 
 
