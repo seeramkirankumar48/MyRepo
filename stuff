@@ -1,0 +1,85 @@
+java exception handling::
+------------------------
+exception::
+An exception is an abnormal termination from the normal flow of the program.
+
+ex::
+suppose if a database is there, and if a connection is made to read the data and in between there is and SQLException and there is no close of the sql connection this will make the resource consumption and if the database could not handle more than 10 users the 11th user may not connect with the db.
+
+try
+{
+//open conn
+//read data
+}
+catch(Exception ex)
+{
+//abnormal execution
+}
+finally
+{
+//close the connn
+}
+
+-->For every thread jvm internally maintains the "Runtime Stack" for that particular thread.
+
+class Test{
+p.s.v.m(){
+do stuff();
+}
+public void dostuff()
+{
+do morestuff();
+}
+public void domorestuff()
+{
+sysout("hello");
+}
+}
+//stack is mentioned as::
+domorestuff()
+dostuff()
+main
+
+If an exception occurs::
+public void domorestuff()
+{
+sysout(10/0)
+}
+//stack is mentioned as::
+domorestuff()
+dostuff()
+main
+
+//since exception arises at:
+domorestuff it will not remove that particular line from runtime stack and will not execute the rest of the lines and it will pass to the do stuff method and this cycle repeats....
+
+-->Throwable is root class for all the exceptions and it is implemented by the "Exception" and "Error"
+
+Exception::
+-----------
+all the exceptions are recoverable and these are mainly because of the user program.
+try
+{
+//read from a file located at the london
+}
+catch(Exception ex)
+{
+//read from local back up file
+}
+ex::IOException,RunTimeException
+
+Error::
+--------
+most of the times errors are not caused by the programs.these can be due to lack of system resources and these are non recoverable.
+Ex::OutOfMemoryError,StackOverflowError
+
+
+
+
+
+
+
+
+
+
+
