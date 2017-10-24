@@ -159,6 +159,27 @@ catch(Exception ex)
 -->Whenever an exception occurs and there is no suitable catch block available for that particular block then that particular exception is carried forward to the jvm where it provides the DefaultExceptionHandler and uses the printStackTrace Method to print the error message and the program terminates abnormally.
 
 
+try can be followed by the catch or finally.
+finally is used to write the clean up code.
+whenever, we write a try block it should be followed by the catch or finally block.
+
+diff b/w finally and finalize is that finally is used to clean up the code written in try block where as finalize is used to cleanup the object level code before it is being killed up by the Garbage collector.
+
+code possiblity::
+try
+{
+//code
+}
+finally
+{
+//finally code
+}
+
+why finally is allowed after try without catch??
+it allows the program with the abnormal termination but before that it may want to perform some of the clean up activities.
+
+
+
 
 
 
