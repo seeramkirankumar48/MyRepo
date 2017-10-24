@@ -73,11 +73,90 @@ Error::
 most of the times errors are not caused by the programs.these can be due to lack of system resources and these are non recoverable.
 Ex::OutOfMemoryError,StackOverflowError
 
+The exceptions are broadly classified into 2 types::
+a.Checked Exception
+While writing the code there might be a chance of leading to the exceptions this is called the Checked Exception.
+All the exceptions except Runtime exception,Error are Checked Exception
+ex::IOException,SQLException,ClassNotFoundException
+ex:: During writing to a file there may be a chance of file doesn't exists,so how you are going to handle this kind of scenarios will be the CheckedException.
+b.unchecked exception
+the exceptions which occur at run time is called as unchecked exceptions.
+ex::ArithmeticException
 
+we can provide the exception messages in three methods.
+e.printStackTrace // prints exception type,description and where the error occurs
+println(e) or println(e.toString()) // prints exception type,description
+println(e.getMessage()) //description.
 
+The risky code should be enclosed in try block and the exception itself should be caught in the catch block.
+whenever a exception is caught the rest of the lines in the try block are skipped and the control will immediately flow to the catch block.
+so,if you contain the code like following::
+try
+{
+//code of 1000 loc
+}
+catch(Exception ex)
+{
+//handler code
+}
+-->If an exception occurs in the first line itself then then the control will be immediately thrown to the catch block and the rest of the 999 loc are not at all executed. so instead of maintaining all of the loc in try block identify which all parts of the code is risky and keep those blocks in the multiple try and catch blocks.
+The exceptions may also arise in the catch and finally block also.
 
+consider the following code::
+try
+{
+stmt1
+stmt2
+stmt3
+}
+catch(Exception e)
+{
+stmt4;
+}
+stmt5
 
+cases::
+1.no exception occured::1,2,3,5 normal termination
+2.exception occured at stmt2::1,4,5 normal termination
+3.exception occured at stmt4:: abnormal termination
+4.exception occured at stmt5:: abnormal termination
 
+-->The parent exception should be the top most exception in the catch block
+consider the following code::
+try
+{
+//code
+}
+catch(Exception ex)
+{
+//handler
+}
+catch(ArithmeticException ex)
+{
+//handler
+}
+
+C.T Error:: exception already caught using the exception catch
+
+so,the code should be ::
+try
+{
+//code
+}
+catch(ArithmeticException ex)
+{
+//handler
+}
+catch(SQLException ex)
+{
+//handler
+}
+catch(Exception ex)
+{
+//handler
+}
+
+-->Whenever an exception occurs and there is no suitable catch block available for that particular block then that particular exception is carried forward to the jvm where it provides the DefaultExceptionHandler and uses the printStackTrace Method to print the error message and the program terminates abnormally.
 
 
 
