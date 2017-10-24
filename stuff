@@ -177,6 +177,9 @@ finally
 
 why finally is allowed after try without catch??
 it allows the program with the abnormal termination but before that it may want to perform some of the clean up activities.
+-->The finally block is guaranteed to execute whether there is an exception or not.
+
+
 
 
 
