@@ -51,9 +51,9 @@ dostuff()
 main
 
 //since exception arises at:
-domorestuff it will not remove that particular line from runtime stack and will not execute the rest of the lines and it will pass to the do stuff method and this cycle repeats....
+domorestuff it will remove that particular line from runtime stack and will not execute the rest of the lines and it will pass to the do stuff method and this cycle repeats....
 
--->Throwable is root class for all the exceptions and it is implemented by the "Exception" and "Error"
+-->Throwable is root class for all the exceptions and it is extended by the "Exception" and "Error"
 
 Exception::
 -----------
@@ -121,7 +121,7 @@ cases::
 3.exception occured at stmt4:: abnormal termination
 4.exception occured at stmt5:: abnormal termination
 
--->The parent exception should be the top most exception in the catch block
+-->The parent exception should not be the top most exception in the catch block
 consider the following code::
 try
 {
@@ -161,6 +161,7 @@ catch(Exception ex)
 
 try can be followed by the catch or finally.
 finally is used to write the clean up code.
+-->The finally block is guaranteed to execute whether there is an exception or not.
 whenever, we write a try block it should be followed by the catch or finally block.
 
 diff b/w finally and finalize is that finally is used to clean up the code written in try block where as finalize is used to cleanup the object level code before it is being killed up by the Garbage collector.
@@ -177,7 +178,7 @@ finally
 
 why finally is allowed after try without catch??
 it allows the program with the abnormal termination but before that it may want to perform some of the clean up activities.
--->The finally block is guaranteed to execute whether there is an exception or not.
+
 
 throw keyword::
 sometimes we can create exception object explicitly and can handover the exception to the jvm.
