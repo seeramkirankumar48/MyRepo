@@ -249,6 +249,8 @@ s.o.p("hello"); //C.T error unreachable code
 throws keyword::
 If in a program, if there is a possibility of CheckedException it is compulsory to handle the checked exception otherwise, we will get compile time error saying ,ex:: unreported error xxxx, must be caught or declared to be thrown.
 
+//It is mainly used to replace the try,catch functionality.
+
 ex1::
 import java.io.*;
 public class MyClass {
@@ -314,7 +316,7 @@ domorestuff();
 }
 public void domorestuff()
 {
-Thread.sleep(1000)// throws c.T error throws InterupptedException must be thrown or caught
+Thread.sleep(1000)// throws C.T error throws InterupptedException must be thrown or caught
 }
 }
 
