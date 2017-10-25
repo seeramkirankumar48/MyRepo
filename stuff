@@ -4,7 +4,7 @@ exception::
 An exception is an abnormal termination from the normal flow of the program.
 
 ex::
-suppose if a database is there, and if a connection is made to read the data and in between there is and SQLException and there is no close of the sql connection this will make the resource consumption and if the database could not handle more than 10 users the 11th user may not connect with the db.
+suppose if a database is there, and if a connection is made to read the data and in between there is a SQLException and if there is no close of the sql connection this will make the resource consumption and if the database could not handle more than 10 users the 11th user may not connect with the db.
 
 try
 {
@@ -51,7 +51,7 @@ dostuff()
 main
 
 //since exception arises at:
-domorestuff it will remove that particular line from runtime stack and will not execute the rest of the lines and it will pass to the do stuff method and this cycle repeats....
+domorestuff, JVM will remove that particular line from runtime stack and will not execute the rest of the lines and it will pass to the do stuff method and this cycle repeats....
 
 -->Throwable is root class for all the exceptions and it is extended by the "Exception" and "Error"
 
@@ -79,6 +79,8 @@ While writing the code there might be a chance of leading to the exceptions this
 All the exceptions except Runtime exception,Error are Checked Exception
 ex::IOException,SQLException,ClassNotFoundException
 ex:: During writing to a file there may be a chance of file doesn't exists,so how you are going to handle this kind of scenarios will be the CheckedException.
+-->The classes that extend from Throwable class except RuntimeException and Error are Checked Exceptions.
+
 b.unchecked exception
 the exceptions which occur at run time is called as unchecked exceptions.
 ex::ArithmeticException
@@ -116,7 +118,7 @@ stmt4;
 stmt5
 
 cases::
-1.no exception occured::1,2,3,5 normal termination
+1.no exception in try block occured::1,2,3,5 normal termination
 2.exception occured at stmt2::1,4,5 normal termination
 3.exception occured at stmt4:: abnormal termination
 4.exception occured at stmt5:: abnormal termination
@@ -156,7 +158,7 @@ catch(Exception ex)
 //handler
 }
 
--->Whenever an exception occurs and there is no suitable catch block available for that particular block then that particular exception is carried forward to the jvm where it provides the DefaultExceptionHandler and uses the printStackTrace Method to print the error message and the program terminates abnormally.
+-->Whenever an exception occurs and there is no suitable catch block available for that particular block then that particular exception is carried forward to the jvm where it provides the DefaultExceptionHandler and uses the printStackTrace Method by default to print the error message and the program terminates abnormally.
 
 
 try can be followed by the catch or finally.
@@ -179,6 +181,10 @@ finally
 why finally is allowed after try without catch??
 it allows the program with the abnormal termination but before that it may want to perform some of the clean up activities.
 
+partially checked exceptions::
+the partially checked exceptions contains both checked as well as unchecked exceptions there are only 2 types of this.
+1.Throwable
+2.Exception
 
 throw keyword::
 sometimes we can create exception object explicitly and can handover the exception to the jvm.
@@ -192,13 +198,29 @@ throw new ArithmeticException("/ by 0"); //creating the exception manually and p
 }
 
 -->Throw will be useful in throwing the user defined exceptions.
+-->Throw will be only used to throw only unchecked as well as userdefined or customized exceptions
+-->Throw will not be used to throw checked or partially checked exceptions because as these are checked at compile time itself.
+-->Throw will not be used to throw an class object.
+
+code::
+class Test{
+p.s.v.m(String[] args)
+{
+throw new B();
+}
+}
+
+class B
+{
+
+}
 
 ex1::
 class Test{
-ArithmeticException ex=new ArithmeticException();
+static ArithmeticException ex=new ArithmeticException();
 p.s.v.main(String[] args)
 {
-throw new ex;
+throw ex;
 }
 }
 //throws Arithmetic Exception.
@@ -222,10 +244,7 @@ s.o.p("hello"); //C.T error unreachable code
 }
 }
 
-//while throwing this exception to the jvm it will not execute the rest of the code block and hence this code will be unreachable while throwing the exception to the jvm hence it is unreachable code.
-
-//throw keyword is used to throw only throwable types(Exceptions,Errors)
-
+//In the above when the throw statement was encountered it will throw to the corresponding method catch method if exists, if it doesn't exists then it will by default thrown to the Jvm and the rest of the code is unreachable.
 
 throws keyword::
 If in a program, if there is a possibility of CheckedException it is compulsory to handle the checked exception otherwise, we will get compile time error saying ,ex:: unreported error xxxx, must be caught or declared to be thrown.
@@ -330,7 +349,7 @@ super(s); // super is used because it is used to print the statement to the cons
 db::
 ----
 use of initializing the instance variables in the class?
-
+why runtime exceptions are not coming under the checked exceptions?
 
 
 
