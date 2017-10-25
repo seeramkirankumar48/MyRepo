@@ -367,6 +367,18 @@ db::
 use of initializing the instance variables in the class?
 why cant we throw partially checked exceptions using throw?
 
+explore::
 
+import java.io.*;
+public class MyClass {
+    public static void main(String[] args) throws Throwable
+    {
+           dostuff();
+          
+    }
+    public static void dostuff(){
+        throw new ArithmeticException("test");
+    }
+}
 
 
