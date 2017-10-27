@@ -198,8 +198,14 @@ throw new ArithmeticException("/ by 0"); //creating the exception manually and p
 }
 
 -->Throw will be useful in throwing the user defined exceptions.
--->Throw will be only used to throw only unchecked as well as userdefined or customized exceptions and Throw will not be used to throw checked or partially checked exceptions because as these are checked at compile time itself until unless if there is respective handler.
+-->Throw will be used to throw both the Checked as well as unchecked exceptions.
+
 -->Throw will not be used to throw an class object.
+
+
+
+
+
 
 code::
 class Test{
