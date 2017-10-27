@@ -514,6 +514,7 @@ ArrayList can grow or sink in size.
 3.ArrayList accepts only Reference types and wrapping or unwrapping is automatically done by the compiler itself.
 ArrayList<Integer> arr=new ArrayList<Integer>();
 
+-->The ArrayList is present in java.util package
 -->In java it is always pass by value only.
 
 Inheritance::
@@ -539,7 +540,7 @@ Sink sink;
 2.common scenarios::
 --------------------
 a.what if the superclass wants to invoke the methods from subclass??
--->the parent class cannot know about any of the child classes,but during the creation of the child class it must know the which parent class it is inheriting.so , the parent class cannot inherit from child.
+-->the parent class cannot know about any of the child classes,but during the creation of the child class it must know the which parent class it is inheriting.so , the parent class cannot invoke the methods from child.
 
 b.what if the subclass want to invoke bothe superclass version and its own version of the methods?? 
 -->you can invoke the super class method by super.method()
