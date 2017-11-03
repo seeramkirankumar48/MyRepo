@@ -163,7 +163,32 @@ catch(Exception ex)
 
 try can be followed by the catch or finally.
 finally is used to write the clean up code.
+
 -->The finally block is guaranteed to execute whether there is an exception or not.
+-->The finally block will not be executed if program exits(either by calling System.exit() or by causing a fatal error that causes the process to abort). 
+
+ex::
+public class First{
+	public static void main(String[] args){
+		
+		try
+		{
+			System.out.println(10/0);
+			
+		}
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			System.exit(0);
+		}
+		finally{
+			System.out.println("finally");
+		}
+	}
+}
+
+
+
 whenever, we write a try block it should be followed by the catch or finally block.
 
 diff b/w finally and finalize is that finally is used to clean up the code written in try block where as finalize is used to cleanup the object level code before it is being killed up by the Garbage collector.
@@ -198,13 +223,91 @@ throw new ArithmeticException("/ by 0"); //creating the exception manually and p
 }
 
 -->Throw will be useful in throwing the user defined exceptions.
--->Throw will be used to throw both the Checked as well as unchecked exceptions.
+-->Throw will be used to throw both the Checked as well as unchecked exceptions but the thing is 
+for,checked exceptions & partially checked exceptions there should be an exception propagation the same is not true for the unchecked exceptions.
+
+code::
+public class First{
+	public static void main(String[] args) {
+		try
+		{
+		dostuff();
+		}
+		catch(Exception ex)//unhandled exception should be thrown or caught.
+		{
+			System.out.println(ex);
+		}
+	}
+	public static void dostuff() throws IOException
+	//unhandled exception should be thrown or caught.
+	{
+		domorestuff();
+	}
+	public static void domorestuff() throws IOException
+	//unhandled exception should be thrown or caught.
+	{
+		throw new IOException("IO Exception thrown");
+	}
+}
+
+
+//there is no need for exception propagation in unchecked exceptions but atleast one method which is calling in the chain must implement the catch or throws.
+
+
+public class First{
+	public static void main(String[] args) {
+		try
+		{
+		dostuff();
+		}
+		catch(Exception ex)//unhandled exception should be thrown or caught.
+		{
+			System.out.println(ex);
+		}
+	}
+	public static void dostuff()
+	{
+		domorestuff();
+	}
+	public static void domorestuff()
+	{
+		throw new ArithmeticException("Arithmetic Exception thrown");
+	}
+}
+
+consider the following code::
+1.
+class Test{
+p.s.v.main(String[] args){
+ try
+{
+sysout("hello world");
+}
+catch(IOException ex){ //c.T.error unnecessary usage of IOException as IO is never used in the try block.
+sysout(ex);
+}
+}
+
+2.
+class Test{
+p.s.v.main(String[] args) throws IOException{
+sysout("hello");
+}
+}
+//works fine without any issues.
+
+ExceptionHandling with MethodOverriding in Java::
+-------------------------------------------------
+
+There are many rules if we talk about methodoverriding with exception handling. The Rules are as follows: 
+
+A.If the superclass method does not declare an exception::
+If the superclass method does not declare an exception, subclass overridden method cannot declare the checked exception but it can declare unchecked exception. 
+
+B.If the superclass method declares an exception::
+If the superclass method declares an exception, subclass overridden method can declare same, subclass exception or no exception but cannot declare parent exception. 
 
 -->Throw will not be used to throw an class object.
-
-
-
-
 
 
 code::
@@ -365,6 +468,273 @@ CustomException(String s)
 super(s); // super is used because it is used to print the statement to the console to print that the printstacktrace() is used since it //is available in Throwable class we need to use the super keyword
 }
 }
+
+JAVA IO::
+---------
+1.File
+File f = new File("abc.txt");
+//It will not create a file it will just point to the file object in java literally saying it will just set the context to the file object in java.
+
+//f.createNewFile() is used to create a new file but not File f = new File("abc.txt");
+
+//whenever, a file already exists and you are creating a same file with the same name then it will not create a new file again it will just simply return true.
+
+//To create a directory...
+File f1=new File("abc");
+f1.mkdir();
+System.out.println(f1.exists()); 
+
+File(file or directory creation) constructors::
+a.File f=new File(String name);
+//used to create a file or directory in the current working directory.
+b.File f=new File(String dir,String name);
+//used to create a file in the directory specified.
+c.File f=new File(File subdir,String name);
+//used to create a file in the directory, by already specified file directory object.
+
+//code::
+
+File fdir=new File("E:\\abc");  
+fdir.mkdir();                   
+File f=new File(fdir,"abc.txt");
+f.createNewFile();              
+System.out.println(f.exists()); 
+
+File object methods::
+1.boolean f.exists();
+//checks for the existence of the file
+2.boolean f.createNewFile();
+//creates a new file
+3.boolean mkdir()
+//creates a directory
+4.boolean isFile()
+//Checks if the specified file object is an file
+5.boolean isDirectory()
+//Checks if the specified file object is an directory
+6.String[] list()
+//gets the lists of file
+7.long length();
+//gets the length of the file
+8.boolean delete();
+//deletes the file object.
+
+//code to list all the files the particular directory.
+
+File fdir=new File("E:\\abc");        
+String[] fileList=fdir.list();        
+for(String i:fileList){               
+	File f =new File(fdir,i);         
+	if(f.isFile()){                   
+		System.out.println(i);        
+	}                                 
+}                                     
+
+
+2.FileWriter
+//FileWriter is used to write the contents to the file.
+
+//FileWriter constructors..
+//overrides if a file already exists.
+a.FileWriter fw = new FileWriter(string fname)
+b.FileWriter fw = new FileWriter(File f)
+
+//appends if a file already exists.
+c.FileWriter fw = new FileWriter(string fname,boolean append)
+d.FileWriter fw = new FileWriter(File f,boolean append)
+
+methods of FileWriter::
+1.write(int ch)
+//writes a unicode character to a file
+2.write(char[] ch)
+//writes an char array of contents to a file.
+3.Write(String s)
+4.flush()
+//flushes the file contents
+5.close()
+//closes the stream after writing has done.
+
+//code for creating a overriding file...           
+FileWriter fw = new FileWriter("E:\\abc\\abc.txt");
+fw.write("helloWorld");                            
+fw.flush();                                        
+fw.close(); 
+
+//code for creating appending contents to file...       
+FileWriter fw = new FileWriter("E:\\abc\\abc.txt",true);
+fw.write("helloWorld");                                 
+fw.write(100);                                          
+char[] ch={'a','b','c'};                                
+fw.write(ch);                                           
+fw.flush();                                             
+fw.close();                                             
+
+??then what is the use of PrintWriter and BufferedWriter?
+A:while writing the contents to a file we need to align to a format("\n") and since some of the systems cannot recognise these special character symbols hence it is recommended to use the PrintWriter or BufferedWriter.
+
+                                       
+3.FileReader
+//It is used to read the contents from the file.
+
+FileReader Constructors::
+a.FileReader fr=new FileReader(String fname);
+b.FileReader fr=new FileReader(File f)
+
+FileReader methods::
+a.int read()
+//reads contents from the file character by character and prints in an unicode number format.
+//if it gives "-1" then there is no character present.
+b.int read(char[] ch)
+//takes the paramters to read number of characters to read and returns the number of characters copied.
+c.void close()
+//closes the stream.
+
+//code to read the entire file contents from the file.
+a.
+FileReader fr=new FileReader("E:\\abc\\abc.txt");
+int i=fr.read();                                 
+while(i!=-1){                                    
+	System.out.print((char)i);                   
+	i=fr.read();                                 
+}                                                
+
+//code to read the file by specifying the length.
+b.
+File f=new File("E:\\abc\\abc.txt");       
+FileReader fr=new FileReader(f);           
+char[] ch= new char[((int)f.length())];    
+fr.read(ch);                               
+for(char i:ch){                            
+	System.out.print(i);                   
+}                                          
+fr.close();                                
+
+??why go for BufferedReader?
+A:suppose, if there is a file which contains 10000 lines and if we want to search for a specific string in that 10000 lines we have to read the content of the file by making 10000 hits so,in order to avoid that and to read the file contents by line by line it is better to use BufferedReader.
+
+??why go for BufferedWriter?
+A:suppose if we want to write a special character("\n") some of the systems wont recognise these characters so thats why it is better to go for BufferedWriter.
+
+??why go for PrintWriter?
+A.suppose if want to write 100(int) value we need to pass it as string for BufferedWriter(bw.write("100")).the PrintWriter provides the mechanisms for all the data types.
+
+
+BufferedWriter::
+----------------
+Constructors::
+BufferedWriter bw = new BufferedWriter(Writer w)
+BufferedWriter bw = new BufferedWriter(Writer w,int buffsize)
+
+The BufferedWriter can't directly communicate with the file it needs an Writer object.
+
+
+methods::
+---------
+write(int ch)
+write(char[] ch)
+write(String s)
+flush()
+close()
+newLine()
+
+code::
+File f = new File("E:\\abc\\abc.txt");   
+FileWriter fw = new FileWriter(f);       
+BufferedWriter bw=new BufferedWriter(fw);
+bw.write("hello world");                 
+bw.newLine();                            
+bw.write("kiran");                       
+bw.newLine();                            
+bw.write("seeram");                      
+bw.flush();                              
+bw.close();  //when we are closing the bufferedWriter we do not need to close the FileWriter it will implicitly close.
+
+BufferedReader::
+----------------
+BufferedReader constructors::
+BufferedReader bw = new BufferedReader(Reader r)
+BufferedReader bw = new BufferedReader(Reader r,int buffsize)                      
+methods::
+int read(char[] ch)
+int read
+void close()
+String readLine()
+//if there is no line then it will show null
+ 
+
+//code::
+                                          
+File f = new File("E:\\abc\\abc.txt");   
+FileReader fr = new FileReader(f);       
+BufferedReader br=new BufferedReader(fr);
+String s= br.readLine();                 
+while(s!=null){                          
+	System.out.println(s);               
+	s=br.readLine();                     
+}                                        
+br.close();                              
+
+PrintWriter::
+constructors::
+PrintWriter pw = new PrintWriter(String fname)
+PrintWriter pw = new PrintWriter(File f)
+PrintWriter pw = new PrintWriter(Writer w)
+
+methods::
+write(int ch)
+write(char[] ch)
+write(String s)
+flush()
+close()
+
+println(any data type)
+
+//code
+PrintWriter pw = new PrintWriter("E:\\abc\\abc.txt");
+pw.println("hello world");                           
+pw.println("kiran");                                 
+pw.println("seeram");                                
+pw.println(7);                                       
+pw.flush();                                          
+pw.close();                                          
+
+diff b/w pw.write(100) and pw.print(100)
+pw.write(100) // writes the unicode character 'd' to file
+pw.print(100) // writes the integer value 100 to the file.
+
+There are mainly two types of files.
+1.Character File or text file(it has readers / writers)
+2.binary File(audio files,video)
+         |
+	Streams
+--------------------
+|		   |
+InputStream    outputStream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
