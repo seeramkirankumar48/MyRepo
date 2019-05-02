@@ -1382,7 +1382,7 @@ Everyone says "no" as Java does not support pointers. No one actually see the ad
 
 Of course, they are very correct.
 
-In Java the method parameters can be primitive data types or object references. Both are passed as value only but small tricky explanation is here for object references. I repeat, when primitive data types are passed as method parameters, they are passed by value (a copy of the value) but incase of object references, the reference is copied (of course, here also a copy only) and passed to the called method. That is, object reference is passed as a value. So, original reference and the parameter copy both will refer the same Java object. As both refer the same object, if the calling method changes the value of its reference (passed from calling method), the original object value itself changes. Note that object itself is not passed, but it’s references is passed.
+In Java the method parameters can be primitive data types or object references. Both are passed as value only but small tricky explanation is here for object references. I repeat, when primitive data types are passed as method parameters, they are passed by value (a copy of the value) but incase of object references, the reference is copied (of course, here also a copy only) and passed to the called method. That is, object reference is passed as a value. So, original reference and the parameter copy both will refer the same Java object. As both refer the same object, if the calling method changes the value of its reference (passed from calling method), the original object value itself changes. Note that object itself is not passed, but itÂ’s references is passed.
 
 
  
